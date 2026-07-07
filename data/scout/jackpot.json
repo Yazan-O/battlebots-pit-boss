@@ -1,0 +1,11 @@
+{
+ "bot": "JackPot",
+ "report": "Vegas Combat Robotics' vertical spinner - the hometown bot of the Las Vegas-taped Pro League.\nFandom confirms \"a brand new JackPot build\" was made for the inaugural Pro League.\nTeam's own announcement: \"Bigger hits. Faster spin-ups. Stronger everywhere.\"\nCareer 6-5 in recorded fights; notably \"DID beat Cobalt\" in prior competition per r/battlebots.\nGroup C is rated wide open by fans: \"Cobalt, Copperhead, or Jackpot could take the group\".\nThis week draws Copperhead - the group's statistical favorite (14-6, Elo #4 in our book).\nThe same reddit thread warns Copperhead \"eliminated both Endgame and Riptide\" in FaceOffs - JackPot is the underdog on paper.\nOfficial episode-2 promo leads with \"Jackpot vs Copperhead\" as the marquee Group C fight.\nNo damage or reliability issues surfaced in the scraped sources.\nThe scout read: rebuilt, confident, and facing the hardest first draw in the group.",
+ "sources": [
+  "https://battlebots.fandom.com/wiki/JackPot (via SERP)",
+  "https://www.reddit.com/r/battlebots/comments/1ss1uoy/",
+  "https://battlebots.com/proleague/"
+ ],
+ "generated": "2026-07-07",
+ "note": "cached demo report - written by Claude from the MCP-scraped sources listed (ANTHROPIC_API_KEY enables live generation)"
+}

@@ -100,6 +100,47 @@ with tab_week:
   <div class="why">{r.why}</div>
 </div>""", unsafe_allow_html=True)
 
+        st.divider()
+        st.subheader("SCOUT REPORT")
+        st.caption("Live intel per bot — Bright Data MCP server (search_engine + "
+                   "scrape_as_markdown), condensed to 10 lines.")
+        bots_this_week = sorted(set(pred.bot_a) | set(pred.bot_b))
+        pick = st.selectbox("Scout this bot", bots_this_week)
+        if st.button("Scout", type="primary"):
+            import sys as _sys
+            _sys.path.insert(0, "src")
+            from pitboss import scout as _scout
+            key = os.environ.get("ANTHROPIC_API_KEY", "")
+            if not key:
+                try:
+                    key = st.secrets["ANTHROPIC_API_KEY"]
+                except Exception:
+                    key = ""
+            rep = None
+            if key:
+                try:
+                    os.environ["ANTHROPIC_API_KEY"] = key
+                    cached = _scout.load_cached(pick)
+                    if cached and cached.get("generated") == str(pd.Timestamp.today().date()):
+                        rep = cached
+                    else:
+                        src_ = _scout.gather(pick)
+                        text = _scout.generate_report(pick, src_)
+                        _scout.save(pick, text, src_)
+                        rep = _scout.load_cached(pick)
+                except Exception:
+                    rep = _scout.load_cached(pick)
+            else:
+                rep = _scout.load_cached(pick)
+            if rep:
+                st.markdown(f"**{rep['bot']}** · report generated {rep['generated']}")
+                st.text(rep["report"])
+                st.caption("sources: " + " · ".join(rep["sources"]))
+                if "note" in rep:
+                    st.caption(rep["note"])
+            else:
+                st.write(f"No cached report for {pick} yet — reports refresh weekly.")
+
 with tab_record:
     sc = data["scorecard"]
     if sc is None or sc.empty:
