@@ -1,16 +1,28 @@
-MIT License
+Pit Boss License (source-available, no-gambling)
+Based on the MIT License with an added Use Restriction.
 
 Copyright (c) 2026 Mohamad Yazan Sadoun
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+of this software, its data files, and associated documentation (the
+"Software"), to use, copy, modify, merge, publish, and distribute the
+Software, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. The above copyright notice, this permission notice, and the Use
+   Restriction below shall be included in all copies or substantial portions
+   of the Software.
+
+2. USE RESTRICTION (gambling prohibition): The Software, any derivative work
+   of it, and any prediction, rating, probability, dataset, or methodology
+   output produced by it, may NOT be used, directly or indirectly, in
+   connection with gambling, betting, wagering, bookmaking, betting-odds
+   compilation, tipster or "picks" services, prediction markets involving
+   stakes, or any product or service that facilitates staking anything of
+   value on an outcome. This restriction applies to commercial and
+   non-commercial use alike.
+
+3. All other use — including research, education, journalism, fan analytics,
+   and commercial software that does not violate clause 2 — is permitted.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -19,3 +31,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Pit Boss is an entertainment and data-engineering project — a public test of
+forecasting methodology on a pre-taped TV show. Not betting advice. Please
+don't gamble with it.
