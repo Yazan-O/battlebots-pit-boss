@@ -67,7 +67,25 @@ def fetch(url: str, source: str, *, use_cache: bool = True) -> str:
         timeout=120,
     )
     r.raise_for_status()
+    if r.text.startswith("Request Failed ("):
+        raise RuntimeError(f"Bright Data error for {url}: {r.text[:200]}")
     # scrub third-party API keys embedded in scraped pages before caching/committing
+    text = re.sub(r"AIza[0-9A-Za-z_-]{35}", "AIza_REDACTED_THIRD_PARTY_KEY", r.text)
+    path.write_text(text, encoding="utf-8")
+    return text
+
+
+def fetch_open(url: str, source: str, *, use_cache: bool = True) -> str:
+    """Direct GET for open-API sources (Wikipedia action=raw).
+
+    Bright Data declines Wikipedia per robots.txt (bad_endpoint) — verified
+    2026-07-06 on both Unlocker and MCP. Everything non-open goes through fetch().
+    """
+    path = _cache_path(source, url, "html")
+    if use_cache and path.exists():
+        return path.read_text(encoding="utf-8")
+    r = requests.get(url, headers={"User-Agent": "PitBoss/0.1 (battlebots analytics; github.com/Yazan-O/battlebots-pit-boss)"}, timeout=60)
+    r.raise_for_status()
     text = re.sub(r"AIza[0-9A-Za-z_-]{35}", "AIza_REDACTED_THIRD_PARTY_KEY", r.text)
     path.write_text(text, encoding="utf-8")
     return text
