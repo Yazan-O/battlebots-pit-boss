@@ -1,0 +1,37 @@
+name: weekly-refresh
+
+on:
+  schedule:
+    - cron: "0 12 * * 3"   # Wed: pre-register upcoming episode (airs Thu 20:00 UTC)
+    - cron: "0 12 * * 5"   # Fri: score last night's episode, refresh data
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: refresh data + predictions
+        env:
+          BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
+          BRIGHTDATA_SERP_ZONE: ${{ vars.BRIGHTDATA_SERP_ZONE || 'serp_api1pitboss_serp' }}
+        run: python -m src.pitboss.refresh
+      - name: commit refreshed data
+        run: |
+          git config user.name "pitboss-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "no data changes"
+          else
+            git commit -m "data: auto-refresh $(date -u +%F)"
+            git push
+          fi
