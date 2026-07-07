@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from pitboss.aliases import load as load_aliases
+from pitboss.aliases import canon, load as load_aliases
 from pitboss.elo import BASE, load_matches, p_win
 
 K = 80
@@ -40,7 +40,7 @@ def all_matches() -> pd.DataFrame:
     cur = pd.read_parquet(CLEAN / "matches_2026.parquet")
     table = load_aliases()
     for col in ("bot_a", "bot_b", "winner"):
-        cur[col] = cur[col].map(lambda n: table.get(n, n))
+        cur[col] = cur[col].map(lambda n: canon(n, table))
     cur = cur.sort_values(["episode", "match_id"])
     cols = ["bot_a", "bot_b", "winner", "season"]
     return pd.concat([hist[cols], cur[cols]], ignore_index=True)
@@ -116,20 +116,20 @@ def main() -> None:
     if args.retro and episode in played_eps:
         cur = pd.read_parquet(CLEAN / "matches_2026.parquet")
         for col in ("bot_a", "bot_b"):
-            cur[col] = cur[col].map(lambda n: table.get(n, n))
+            cur[col] = cur[col].map(lambda n: canon(n, table))
         card = cur[cur.episode == episode][["episode", "date", "bot_a", "bot_b"]]
         # ratings strictly before this episode
         hist_only = df[df.season < 2026]
         earlier = pd.read_parquet(CLEAN / "matches_2026.parquet")
         for col in ("bot_a", "bot_b", "winner"):
-            earlier[col] = earlier[col].map(lambda n: table.get(n, n))
+            earlier[col] = earlier[col].map(lambda n: canon(n, table))
         earlier = earlier[earlier.episode < episode][["bot_a", "bot_b", "winner", "season"]]
         ratings, record = ratings_from(pd.concat([hist_only, earlier], ignore_index=True))
         preregistered = False
     else:
         card = upcoming[upcoming.episode == episode].copy()
-        card["bot_a"] = card.bot_a.map(lambda n: table.get(n, n))
-        card["bot_b"] = card.bot_b.map(lambda n: table.get(n, n))
+        card["bot_a"] = card.bot_a.map(lambda n: canon(n, table))
+        card["bot_b"] = card.bot_b.map(lambda n: canon(n, table))
         ratings, record = ratings_from(df)
         preregistered = True
 
@@ -157,10 +157,10 @@ def main() -> None:
     print(out[["fight", "p_a", "why"]].to_string(index=False))
 
     # leaderboard strengths for the 24 Pro League bots
-    pro = sorted(set(pd.read_parquet(CLEAN / "matches_2026.parquet").bot_a.map(lambda n: table.get(n, n)))
-                 | set(pd.read_parquet(CLEAN / "matches_2026.parquet").bot_b.map(lambda n: table.get(n, n)))
-                 | set(upcoming.bot_a.map(lambda n: table.get(n, n)))
-                 | set(upcoming.bot_b.map(lambda n: table.get(n, n))))
+    pro = sorted(set(pd.read_parquet(CLEAN / "matches_2026.parquet").bot_a.map(lambda n: canon(n, table)))
+                 | set(pd.read_parquet(CLEAN / "matches_2026.parquet").bot_b.map(lambda n: canon(n, table)))
+                 | set(upcoming.bot_a.map(lambda n: canon(n, table)))
+                 | set(upcoming.bot_b.map(lambda n: canon(n, table))))
     full_ratings, full_record = ratings_from(df)
     ci = bootstrap_ci(df, pro)
     strengths = pd.DataFrame({

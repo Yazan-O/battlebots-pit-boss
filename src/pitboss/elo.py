@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from pitboss.aliases import load as load_aliases
+from pitboss.aliases import canon, load as load_aliases
 
 CLEAN = Path("data/clean")
 BASE = 1500.0
@@ -27,7 +27,7 @@ def load_matches() -> pd.DataFrame:
     df = pd.read_parquet(CLEAN / "matches_hist.parquet")
     table = load_aliases()
     for col in ("bot_a", "bot_b", "winner"):
-        df[col] = df[col].map(lambda n: table.get(n, n))
+        df[col] = df[col].map(lambda n: canon(n, table))
     df["date_filled"] = df["date"].fillna("9999")
     return df.sort_values(["season", "date_filled", "match_id"]).reset_index(drop=True)
 

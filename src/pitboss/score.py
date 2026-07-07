@@ -12,7 +12,7 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from pitboss.aliases import load as load_aliases
+from pitboss.aliases import canon, load as load_aliases
 
 CLEAN = Path("data/clean")
 PRED = Path("data/predictions")
@@ -22,7 +22,7 @@ def main() -> None:
     table = load_aliases()
     played = pd.read_parquet(CLEAN / "matches_2026.parquet")
     for col in ("bot_a", "bot_b", "winner"):
-        played[col] = played[col].map(lambda n: table.get(n, n))
+        played[col] = played[col].map(lambda n: canon(n, table))
     results = {}
     for r in played.itertuples():
         results[frozenset((r.bot_a, r.bot_b))] = r.winner

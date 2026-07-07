@@ -1,0 +1,4 @@
+week,episode,date,fight,bot_a,bot_b,p_a,model_version,generated_at,preregistered,why
+2,102,2026-07-09,Manta vs Skorpios,Manta,Skorpios,0.4743,elo-k80-v1,2026-07-07T05:36:40+00:00,True,"Skorpios carries a 18-point Elo edge (1518 vs 1500); career 0-0 vs 11-11; spinner vertical vs hammer saw; Manta has only 0 recorded fights - low data, wide uncertainty"
+2,102,2026-07-09,MadCatter vs Tombstone,MadCatter,Tombstone,0.5198,elo-k80-v1,2026-07-07T05:36:40+00:00,True,MadCatter carries a 14-point Elo edge (1585 vs 1571); career 8-6 vs 22-9; spinner vertical vs spinner horizontal
+2,102,2026-07-09,JackPot vs Copperhead,JackPot,Copperhead,0.2537,elo-k80-v1,2026-07-07T05:36:40+00:00,True,Copperhead carries a 187-point Elo edge (1735 vs 1547); career 6-5 vs 14-6

@@ -1,4 +1,4 @@
 week,episode,date,fight,bot_a,bot_b,p_a,model_version,generated_at,preregistered,why
-1,101,2026-07-02,End Game vs Malice,End Game,Malice,0.7524,elo-k80-v1,2026-07-07T05:35:07+00:00,False,End Game carries a 193-point Elo edge (1758 vs 1565); career 19-10 vs 7-6
-1,101,2026-07-02,Golden Fury vs DeathRoll,Golden Fury,DeathRoll,0.402,elo-k80-v1,2026-07-07T05:35:07+00:00,False,"DeathRoll carries a 69-point Elo edge (1569 vs 1500); career 0-0 vs 7-5; Golden Fury has only 0 recorded fights - low data, wide uncertainty"
-1,101,2026-07-02,HUGE vs HyperShock,HUGE,HyperShock,0.7423,elo-k80-v1,2026-07-07T05:35:07+00:00,False,HUGE carries a 184-point Elo edge (1772 vs 1588); career 17-10 vs 13-14
+1,101,2026-07-02,End Game vs Malice,End Game,Malice,0.7524,elo-k80-v1,2026-07-07T05:36:37+00:00,False,End Game carries a 193-point Elo edge (1758 vs 1565); career 19-10 vs 7-6
+1,101,2026-07-02,Golden Fury vs DeathRoll,Golden Fury,DeathRoll,0.402,elo-k80-v1,2026-07-07T05:36:37+00:00,False,"DeathRoll carries a 69-point Elo edge (1569 vs 1500); career 0-0 vs 7-5; Golden Fury has only 0 recorded fights - low data, wide uncertainty"
+1,101,2026-07-02,HUGE vs HyperShock,HUGE,HyperShock,0.7423,elo-k80-v1,2026-07-07T05:36:37+00:00,False,HUGE carries a 184-point Elo edge (1772 vs 1588); career 17-10 vs 13-14
