@@ -1,0 +1,4 @@
+week,episode,fight,predicted_winner,p_predicted,actual_winner,hit,log_loss,preregistered,model_version
+1,101,End Game vs Malice,End Game,0.7524,Malice,0,1.3959,False,elo-k80-v1
+1,101,Golden Fury vs DeathRoll,DeathRoll,0.598,Golden Fury,0,0.9113,False,elo-k80-v1
+1,101,HUGE vs HyperShock,HUGE,0.7423,HUGE,1,0.298,False,elo-k80-v1
