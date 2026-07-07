@@ -26,20 +26,32 @@ st.set_page_config(page_title="Pit Boss — BattleBots Pro League predictions",
 
 st.markdown(f"""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Barlow+Condensed:wght@600;700&display=swap');
+/* tokens — voices: Barlow Condensed announces, IBM Plex Sans explains,
+   IBM Plex Mono is the instrument voice (every number). One accent: arena
+   amber. Status colors are reserved for hit/miss state, nowhere else. */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&family=Barlow+Condensed:wght@600;700&display=swap');
+:root {{
+  --ink: {INK}; --ink-2: {MUT}; --canvas: {CANVAS}; --panel: {PANEL};
+  --accent: {AMBER}; --rule: #2a2f36; --rule-strong: #3a4149;
+  --hit: #4c9e6a; --miss: #b0524d;
+}}
 html, body, [class*="st-"] {{ font-family: 'IBM Plex Sans', sans-serif; }}
 h1, h2, h3 {{ font-family: 'Barlow Condensed', sans-serif; letter-spacing: .02em; }}
 .stTabs [data-baseweb="tab"] {{ border-radius: 2px; }}
-div[data-testid="stMetric"] {{ background: {PANEL}; padding: .6rem .9rem; border-radius: 2px; }}
+div[data-testid="stMetric"] {{ background: var(--panel); padding: .6rem .9rem;
+  border-radius: 2px; border: 1px solid var(--rule); }}
+div[data-testid="stMetricValue"] {{ font-family: 'IBM Plex Mono', monospace; }}
 #MainMenu, footer {{ visibility: hidden; }}
-.fight {{ background: {PANEL}; border-left: 3px solid {AMBER}; border-radius: 2px;
+.fight {{ background: var(--panel); border: 1px solid var(--rule);
+          border-left: 3px solid var(--accent); border-radius: 2px;
           padding: .9rem 1.1rem; margin-bottom: .8rem; }}
 .fight .names {{ font-family: 'Barlow Condensed'; font-size: 1.5rem; font-weight: 700; }}
-.fight .why {{ color: {MUT}; font-size: .85rem; margin-top: .35rem; }}
-.bar {{ height: 10px; background: #2a2f36; border-radius: 2px; margin: .45rem 0 .2rem; }}
-.bar > div {{ height: 10px; background: {AMBER}; border-radius: 2px; }}
-.pct {{ color: {AMBER}; font-weight: 600; }}
-.disclaimer {{ color: {MUT}; font-size: .78rem; margin-top: 2rem; }}
+.fight .why {{ color: var(--ink-2); font-size: .85rem; margin-top: .35rem; }}
+.bar {{ height: 10px; background: var(--rule); border-radius: 2px; margin: .45rem 0 .2rem; }}
+.bar > div {{ height: 10px; background: var(--accent); border-radius: 2px; }}
+.pct {{ color: var(--accent); font-weight: 600; font-family: 'IBM Plex Mono', monospace; }}
+.disclaimer {{ color: var(--ink-2); font-size: .78rem; margin-top: 2rem;
+               border-top: 1px solid var(--rule); padding-top: .8rem; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -64,8 +76,9 @@ def plotly_layout(fig: go.Figure, **kw) -> go.Figure:
         template=None, paper_bgcolor=CANVAS, plot_bgcolor=CANVAS,
         font=dict(family="IBM Plex Sans, sans-serif", color=INK, size=14),
         margin=dict(l=60, r=20, t=40, b=50), **kw)
-    fig.update_xaxes(gridcolor=GRID, zeroline=False)
-    fig.update_yaxes(gridcolor=GRID, zeroline=False)
+    mono = dict(family="IBM Plex Mono, monospace", size=12)
+    fig.update_xaxes(gridcolor=GRID, zeroline=False, tickfont=mono)
+    fig.update_yaxes(gridcolor=GRID, zeroline=False, tickfont=mono)
     return fig
 
 
@@ -163,8 +176,12 @@ with tab_record:
                       yaxis_title="running log-loss (lower is better)")
         st.plotly_chart(fig, width="stretch")
         show = sc[["episode", "fight", "predicted_winner", "p_predicted",
-                   "actual_winner", "hit", "preregistered"]]
-        st.dataframe(show, hide_index=True, width="stretch")
+                   "actual_winner", "hit", "preregistered"]].copy()
+        show["hit"] = show.hit.map({1: "✓ hit", 0: "✗ miss"})
+        styled = show.style.map(
+            lambda v: f"color: {'#4c9e6a' if v == '✓ hit' else '#b0524d'}; font-weight: 600",
+            subset=["hit"])
+        st.dataframe(styled, hide_index=True, width="stretch")
 
 with tab_board:
     s = data["strengths"].sort_values("elo")
