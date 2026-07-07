@@ -1,0 +1,25 @@
+episode,bot,mentions,mean_sentiment,yt_comments,reddit_comments
+101,Bloodsport,0,,0,0
+101,Cobalt,0,,0,0
+101,Copperhead,1,,1,0
+101,DeathRoll,20,0.11352,17,3
+101,Disarray,0,,0,0
+101,End Game,34,0.19671,31,3
+101,Golden Fury,30,-0.201645,27,3
+101,HUGE,39,0.25378500000000004,36,3
+101,HyperShock,36,-0.12355294117647059,31,5
+101,JackPot,1,,1,0
+101,MadCatter,2,,2,0
+101,Magnitude,0,,0,0
+101,Malice,32,0.42183333333333334,28,4
+101,Manta,1,,1,0
+101,Minotaur,6,0.6191666666666666,6,0
+101,Orbitron,1,,1,0
+101,Ribbot,1,,1,0
+101,Skorpios,0,,0,0
+101,Switchback,0,,0,0
+101,Terrortops,0,,0,0
+101,The Twins,0,,0,0
+101,Tombstone,9,0.19962,9,0
+101,Valkyrie,0,,0,0
+101,Witch Doctor,2,,2,0
