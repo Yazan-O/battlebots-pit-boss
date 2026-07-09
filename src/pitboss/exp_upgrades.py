@@ -18,9 +18,9 @@ from pitboss.aliases import canon, load as load_aliases
 from pitboss.elo import BASE, TEST_SEASON, VAL_SEASONS, load_matches, metrics, p_win
 
 CLEAN = Path("data/clean")
-BASELINE_VAL_LL = 0.6502
-BASELINE_TEST_LL = 0.6430
-BASELINE_TEST_BRIER = 0.2299
+BASELINE_VAL_LL = 0.6502  # corpus v1; rerun pending on v2
+BASELINE_TEST_LL = 0.6419
+BASELINE_TEST_BRIER = 0.2260
 SCALE = 173.7178
 MU0 = 0.0
 PHI0 = 350.0 / SCALE

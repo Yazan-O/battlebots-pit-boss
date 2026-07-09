@@ -27,7 +27,7 @@ from pitboss.aliases import canon, load as load_aliases
 from pitboss.elo import BASE, load_matches, p_win
 
 K = 80
-MODEL_VERSION = "elo-k80-v1"
+MODEL_VERSION = "elo-k80-v2"  # v2 = corrected 626-fight corpus (2026-07-09)
 CLEAN = Path("data/clean")
 PRED = Path("data/predictions")
 LOW_DATA_FIGHTS = 5

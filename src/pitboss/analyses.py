@@ -41,39 +41,55 @@ LAYOUT = dict(
 
 
 def weapon_meta() -> None:
+    """Entry share (how much of the field) + win rate (efficacy) per class.
+
+    Win SHARE alone is participation-confounded: verticals win more fights mostly
+    because more verticals enter. Entry share shows adoption; win rate shows edge.
+    """
     df = load_matches()
     wclass = dict(pd.read_csv(CLEAN / "weapon_classes.csv")[["bot", "weapon_class"]].values)
-    df["winner_class"] = df.winner.map(lambda b: wclass.get(b, "other"))
-    counts = df.groupby(["season", "winner_class"]).size().rename("n").reset_index()
-    counts["share"] = counts.n / counts.groupby("season").n.transform("sum")
-    share = counts
-    share["wc"] = share.season - 5
+    rows = []
+    for r in df.itertuples():
+        for bot in (r.bot_a, r.bot_b):
+            rows.append({"season": r.season, "cls": wclass.get(bot, "other"),
+                         "won": int(bot == r.winner)})
+    app_df = pd.DataFrame(rows)
+    agg = app_df.groupby(["season", "cls"]).agg(apps=("won", "size"), wins=("won", "sum")).reset_index()
+    agg["entry_share"] = agg.apps / agg.groupby("season").apps.transform("sum")
+    agg["win_rate"] = agg.wins / agg.apps
+    agg["wc"] = agg.season - 5
 
     fig = go.Figure()
-    for cls in CLASS_COLORS:
-        sub = share[share.winner_class == cls]
-        if sub.empty:
-            continue
+    for cls in ("spinner-vertical", "spinner-horizontal", "hammer-saw", "flipper", "control-wedge"):
+        sub = agg[agg.cls == cls]
+        hero = cls == "spinner-vertical"
         fig.add_trace(go.Scatter(
-            x=sub.wc, y=sub.share, name=cls.replace("-", " "),
-            mode="lines+markers", line=dict(color=CLASS_COLORS[cls], width=3 if cls == "spinner-vertical" else 1.5),
-            marker=dict(size=7 if cls == "spinner-vertical" else 5)))
+            x=sub.wc, y=sub.entry_share, name=f"{cls.replace('-', ' ')} — entry share",
+            mode="lines+markers", line=dict(color=CLASS_COLORS[cls], width=3 if hero else 1.5),
+            marker=dict(size=7 if hero else 5)))
+        if hero:
+            fig.add_trace(go.Scatter(
+                x=sub.wc, y=sub.win_rate, name="vertical spinner — win rate",
+                mode="lines+markers", line=dict(color=CLASS_COLORS[cls], width=1.5, dash="dot"),
+                marker=dict(size=5)))
+    fig.add_hline(y=0.5, line=dict(color="#555b63", dash="dash", width=1))
     fig.update_layout(
         **LAYOUT, width=900, height=560,
-        title=dict(text="Share of wins by weapon class, World Championship I–VII", font=dict(size=16)),
+        title=dict(text="The vertical-spinner takeover is adoption, not dominance — "
+                        "entry share (solid) vs win rate (dotted)", font=dict(size=15)),
         xaxis=dict(title="World Championship", tickmode="array",
                    tickvals=list(range(1, 8)), ticktext=["I", "II", "III", "IV", "V", "VI", "VII"],
                    gridcolor=GRID, zeroline=False),
-        yaxis=dict(title="share of wins", tickformat=".0%", gridcolor=GRID, zeroline=False),
+        yaxis=dict(title="share / rate", tickformat=".0%", gridcolor=GRID, zeroline=False),
         legend=dict(bgcolor=CANVAS, borderwidth=0),
     )
     fig.write_image("assets/weapon_meta.png", scale=2)
 
-    wide = share.pivot_table(index="wc", columns="winner_class", values="share").fillna(0)
-    print("win share by class per WC:")
-    print((wide * 100).round(1).to_string())
-    v = wide.get("spinner-vertical")
-    print(f"\nvertical-spinner win share: WC I {v.iloc[0]:.0%} -> WC VII {v.iloc[-1]:.0%}")
+    v = agg[agg.cls == "spinner-vertical"].sort_values("wc")
+    print("vertical spinners per WC (entry share / win rate):")
+    print(v[["wc", "entry_share", "win_rate"]].round(3).to_string(index=False))
+    print("\nCaveat (recorded): weapon classes are current-era registry labels; a few "
+          "bots ran different configurations in early seasons (e.g. Bite Force WC I).")
 
 
 def hype_vs_perf() -> None:

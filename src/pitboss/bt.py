@@ -128,7 +128,7 @@ def main() -> None:
     print(f"\nHELD-OUT season {TEST_SEASON}, hl={hl} l2_theta={l2t} l2_m={l2m}:")
     print(f"  log_loss={m['log_loss']:.4f}  brier={m['brier']:.4f}  "
           f"acc={m['accuracy']:.3f}  n={m['n']}")
-    print("  (Elo baseline held-out: log_loss=0.6430, brier=0.2299 — BT ships as "
+    print("  (Elo baseline held-out: log_loss=0.6419, brier=0.2260 (corpus v2) — BT ships as "
           "primary only if it beats BOTH)")
 
 
