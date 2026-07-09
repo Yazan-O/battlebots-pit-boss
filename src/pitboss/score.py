@@ -23,16 +23,26 @@ def main() -> None:
     played = pd.read_parquet(CLEAN / "matches_2026.parquet")
     for col in ("bot_a", "bot_b", "winner"):
         played[col] = played[col].map(lambda n: canon(n, table))
-    results = {}
+    # keyed by (episode, pair) so a season rematch can never overwrite an
+    # earlier result; results without an assigned episode fall back to pair-only
+    results, results_no_ep = {}, {}
     for r in played.itertuples():
-        results[frozenset((r.bot_a, r.bot_b))] = r.winner
+        pair = frozenset((r.bot_a, r.bot_b))
+        if pd.notna(r.episode):
+            results[(int(r.episode), pair)] = r.winner
+        else:
+            results_no_ep[pair] = r.winner
 
-    rows = []
+    today = pd.Timestamp.today().date().isoformat()
+    rows, unresolved = [], []
     for path in sorted(PRED.glob("week_*.csv")):
         wk = pd.read_csv(path)
         for r in wk.itertuples():
-            winner = results.get(frozenset((r.bot_a, r.bot_b)))
+            pair = frozenset((r.bot_a, r.bot_b))
+            winner = results.get((int(r.episode), pair)) or results_no_ep.get(pair)
             if winner is None:
+                if bool(r.preregistered) and str(r.date) < today:
+                    unresolved.append(f"ep{r.episode}: {r.fight}")
                 continue
             p_winner = r.p_a if winner == r.bot_a else 1.0 - r.p_a
             rows.append({
@@ -45,6 +55,10 @@ def main() -> None:
                 "preregistered": bool(r.preregistered),
                 "model_version": r.model_version,
             })
+    if unresolved:
+        # an aired pre-registered episode MUST reconcile: fail closed, go red in CI
+        raise SystemExit("UNRESOLVED aired pre-registered fights (source stale or "
+                         f"parse drift): {unresolved}")
     if not rows:
         raise SystemExit("no scored fights yet - no week file overlaps played results")
     sc = pd.DataFrame(rows).sort_values(["episode", "fight"]).reset_index(drop=True)

@@ -34,16 +34,21 @@ UPCOMING_SCHEMA = ["episode", "date", "bot_a", "bot_b", "group"]
 
 
 def main() -> None:
-    played = _parse_fandom(fetch(FANDOM_URL, "fandom"))
+    # results are fetched cache-free: the per-day cache must never serve a stale
+    # results page on scoring day (the Friday-after-air failure mode)
+    played = _parse_fandom(fetch(FANDOM_URL, "fandom", use_cache=False))
     cards = _parse_event_cards(fetch(EVENTS_URL, "battlebots"))
     today = date.today().isoformat()
     warnings = _assign_episodes(played, cards, today)
-    upcoming = _upcoming_rows(cards, today)
+    played_pairs = {_pair_key(r["bot_a"], r["bot_b"]) for r in played}
+    upcoming = [r for r in _upcoming_rows(cards, today)
+                if _pair_key(r["bot_a"], r["bot_b"]) not in played_pairs]
 
     played_df = pd.DataFrame(played, columns=PLAYED_SCHEMA)
     upcoming_df = pd.DataFrame(upcoming, columns=UPCOMING_SCHEMA)
     played_df["episode"] = played_df["episode"].astype("Int64")
     upcoming_df["episode"] = upcoming_df["episode"].astype("Int64")
+    _assert_append_only(played_df, OUT_DIR / "matches_2026.parquet")
     new_played = _played_changes(played_df, OUT_DIR / "matches_2026.parquet")
     upcoming_changes = _row_changes(upcoming_df, OUT_DIR / "upcoming.parquet", UPCOMING_SCHEMA)
 
@@ -296,7 +301,7 @@ def _assign_episodes(played: list[dict], cards: list[dict], today: str) -> list[
     by_group_pair = {}
     by_pair = {}
     for card in cards:
-        if card["date"] >= today:
+        if card["date"] > today:  # a result on an event-day card means it aired
             continue
         pair = _pair_key(card["bot_a"], card["bot_b"])
         by_pair[pair] = card
@@ -320,6 +325,20 @@ def _upcoming_rows(cards: list[dict], today: str) -> list[dict]:
         for row in cards
         if row["date"] >= today
     ]
+
+
+def _assert_append_only(df: pd.DataFrame, path: Path) -> None:
+    """A previously recorded result may never disappear or change winner."""
+    if not path.exists():
+        return
+    old = pd.read_parquet(path)
+    new_keys = {(r.group, _pair_key(r.bot_a, r.bot_b)): r.winner for r in df.itertuples()}
+    for r in old.itertuples():
+        key = (r.group, _pair_key(r.bot_a, r.bot_b))
+        if key not in new_keys:
+            raise AssertionError(f"append-only violation: recorded result vanished from source: {r.bot_a} vs {r.bot_b} [{r.group}] — refusing to write")
+        if new_keys[key] != r.winner:
+            raise AssertionError(f"append-only violation: winner changed for {r.bot_a} vs {r.bot_b}: {r.winner} -> {new_keys[key]} — refusing to write")
 
 
 def _played_changes(df: pd.DataFrame, path: Path) -> int:

@@ -22,7 +22,7 @@ PANEL = "#191d23"
 GRID = "#22262c"
 
 st.set_page_config(page_title="Pit Boss — BattleBots Pro League predictions",
-                   page_icon="🤖", layout="wide")
+                   page_icon="assets/favicon.png", layout="wide")
 
 st.markdown(f"""
 <style>
@@ -69,6 +69,15 @@ def load():
     d["buzz"] = pd.read_csv("data/clean/buzz.csv")
     d["hist"] = pd.read_parquet("data/clean/matches_hist.parquet")
     return d
+
+
+def tile(col, label: str, value: str, sub: str = "") -> None:
+    col.markdown(
+        f"""<div style="background:{PANEL};border:1px solid #2a2f36;border-radius:2px;
+        padding:.6rem .9rem"><div style="color:{MUT};font-size:.78rem">{label}</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:1.5rem">{value}</div>
+        <div style="color:{MUT};font-size:.78rem">{sub}</div></div>""",
+        unsafe_allow_html=True)
 
 
 def plotly_layout(fig: go.Figure, **kw) -> go.Figure:
@@ -156,15 +165,21 @@ with tab_week:
 
 with tab_record:
     sc = data["scorecard"]
-    if sc is None or sc.empty:
-        st.write("First scored episode lands after the next air date.")
+    pre = sc[sc.preregistered] if sc is not None else None
+    coin = math.log(2)
+    # THE track record is pre-registered fights only — nothing else counts
+    if pre is None or pre.empty:
+        st.subheader("Awaiting the first pre-registered result")
+        st.markdown(f"<span style='color:{MUT}'>Week-2 predictions are committed and "
+                    "frozen (see the git timestamp) — the first accountable scores land "
+                    "when episode 102 airs. Nothing here will ever be backfilled.</span>",
+                    unsafe_allow_html=True)
     else:
-        coin = math.log(2)
         c1, c2, c3 = st.columns(3)
-        c1.metric("fights scored", len(sc))
-        c2.metric("hits", f"{int(sc.hit.sum())}/{len(sc)}")
-        c3.metric("running log-loss vs coin 0.693", f"{sc.log_loss.mean():.3f}")
-        sc2 = sc.reset_index()
+        tile(c1, "pre-registered fights scored", str(len(pre)))
+        tile(c2, "hits", f"{int(pre.hit.sum())}/{len(pre)}")
+        tile(c3, "running log-loss", f"{pre.log_loss.mean():.3f}", "coin flip = 0.693")
+        sc2 = pre.reset_index()
         sc2["running"] = sc2.log_loss.expanding().mean()
         fig = go.Figure()
         fig.add_hline(y=coin, line=dict(color=MUT, dash="dash"),
@@ -172,16 +187,26 @@ with tab_record:
         fig.add_trace(go.Scatter(x=sc2.index + 1, y=sc2.running, mode="lines+markers",
                                  line=dict(color=AMBER, width=2), showlegend=False))
         plotly_layout(fig, height=380,
-                      xaxis_title="fights scored (chronological)",
+                      xaxis_title="pre-registered fights (chronological)",
                       yaxis_title="running log-loss (lower is better)")
         st.plotly_chart(fig, width="stretch")
-        show = sc[["episode", "fight", "predicted_winner", "p_predicted",
-                   "actual_winner", "hit", "preregistered"]].copy()
+
+    def scoretable(df):
+        show = df[["episode", "fight", "predicted_winner", "p_predicted",
+                   "actual_winner", "hit"]].copy()
         show["hit"] = show.hit.map({1: "✓ hit", 0: "✗ miss"})
-        styled = show.style.map(
+        return show.style.map(
             lambda v: f"color: {'#4c9e6a' if v == '✓ hit' else '#b0524d'}; font-weight: 600",
             subset=["hit"])
-        st.dataframe(styled, hide_index=True, width="stretch")
+
+    if pre is not None and not pre.empty:
+        st.dataframe(scoretable(pre), hide_index=True, width="stretch")
+    retro = sc[~sc.preregistered] if sc is not None else None
+    if retro is not None and not retro.empty:
+        with st.expander("Retrospective validation (episode 1 aired before Pit Boss "
+                         "went live — honest backfill, model trained only on prior "
+                         "data, NOT part of the accountable record)"):
+            st.dataframe(scoretable(retro), hide_index=True, width="stretch")
 
 with tab_board:
     s = data["strengths"].sort_values("elo")
@@ -197,8 +222,10 @@ with tab_board:
     plotly_layout(fig, height=640, xaxis_title="Elo (90% bootstrap interval)",
                   title=dict(text="The 24 Pro League bots by current Elo", font=dict(size=16)))
     st.plotly_chart(fig, width="stretch")
-    st.caption("Bots with few career fights carry wide intervals — that width is the "
-               "honest uncertainty, not a bug. New bots start at the population mean (1500).")
+    st.caption("Intervals: parametric bootstrap (chronology-preserving) for bots with "
+               "5+ recorded fights; bots below that show the population prior band — "
+               "an honest 'could be anywhere in the field' instead of fake precision. "
+               "New bots start at the population mean (1500).")
     st.image("assets/weapon_meta.png",
              caption="The reboot-era meta: vertical spinners won 37% of fights in WC I, 57% by WC VII.")
 
@@ -226,12 +253,12 @@ with tab_hype:
     c1, c2 = st.columns(2)
     if len(over):
         o = over.iloc[0]
-        c1.metric("most hyped vs rating", o.bot,
-                  f"buzz #{int(o.buzz_rank)} · Elo #{int(o.elo_rank)}", delta_color="off")
+        tile(c1, "most hyped vs rating", o.bot, f"buzz #{int(o.buzz_rank)} · Elo #{int(o.elo_rank)}")
     if len(under):
         u = under.iloc[0]
-        c2.metric("most slept-on", u.bot,
-                  f"Elo {u.elo:.0f} · {int(u.mentions)} mentions", delta_color="off")
+        tile(c2, "most slept-on", u.bot, f"Elo {u.elo:.0f} · {int(u.mentions)} mentions")
+    st.caption("Buzz counts are exposure-biased: bots that fought in an aired episode "
+               "get talked about. Read this as attention vs rating, not merit vs rating.")
 
 st.markdown('<div class="disclaimer">Pit Boss is an entertainment and data-engineering '
             'project — a public test of forecasting methodology on a pre-taped TV show. '

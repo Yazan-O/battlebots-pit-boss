@@ -78,19 +78,45 @@ def why_line(a: str, b: str, ratings: dict, record: dict, wclass: dict) -> str:
     return "; ".join(bits)
 
 
-def bootstrap_ci(df: pd.DataFrame, bots: list[str]) -> pd.DataFrame:
+def bootstrap_ci(df: pd.DataFrame, bots: list[str],
+                 ratings: dict[str, float], record: dict[str, list[int]]) -> pd.DataFrame:
+    """Parametric bootstrap: replay the real chronological fight sequence B times,
+    drawing each outcome from the evolving replay's own win probability. Preserves
+    the path-dependence i.i.d. row resampling destroys. Bots with <LOW_DATA_FIGHTS
+    fights get the explicit population prior band instead of fake precision."""
     rng = np.random.default_rng(7)
+    seq = list(df[["bot_a", "bot_b"]].itertuples(index=False, name=None))
+    # outcomes are generated from the FITTED strengths (truth = point estimates),
+    # then re-estimated by the same Elo replay: the spread of re-estimates is the
+    # estimator's sampling uncertainty
+    p_true = np.array([p_win(ratings.get(a, BASE), ratings.get(b, BASE)) for a, b in seq])
     samples = {b: [] for b in bots}
     for _ in range(BOOTSTRAP):
-        boot = df.sample(len(df), replace=True, random_state=rng.integers(2**31))
-        r, _ = ratings_from(boot)
-        for b in bots:
-            samples[b].append(r.get(b, BASE))
-    return pd.DataFrame({
-        "bot": bots,
-        "ci_lo": [float(np.percentile(samples[b], 5)) for b in bots],
-        "ci_hi": [float(np.percentile(samples[b], 95)) for b in bots],
-    })
+        draws = rng.random(len(seq)) < p_true
+        r: dict[str, float] = {}
+        for (a, b), a_won in zip(seq, draws):
+            ra, rb = r.get(a, BASE), r.get(b, BASE)
+            p = p_win(ra, rb)
+            sa = 1.0 if a_won else 0.0
+            r[a] = ra + K * (sa - p)
+            r[b] = rb + K * ((1 - sa) - (1 - p))
+        for bot in bots:
+            samples[bot].append(r.get(bot, BASE))
+    rated = [v for v in ratings.values()]
+    prior_lo, prior_hi = float(np.percentile(rated, 5)), float(np.percentile(rated, 95))
+    rows = []
+    for b in bots:
+        n = sum(record.get(b, [0, 0]))
+        if n < LOW_DATA_FIGHTS:
+            lo, hi = prior_lo, prior_hi  # explicit "could be anywhere in the field"
+        else:
+            lo = float(np.percentile(samples[b], 5))
+            hi = float(np.percentile(samples[b], 95))
+            lo, hi = min(lo, ratings.get(b, BASE)), max(hi, ratings.get(b, BASE))
+        assert hi - lo > 50, f"suspiciously narrow interval for {b}: [{lo},{hi}]"
+        rows.append({"bot": b, "ci_lo": round(lo, 1), "ci_hi": round(hi, 1),
+                     "ci_kind": "bootstrap" if n >= LOW_DATA_FIGHTS else "prior-band"})
+    return pd.DataFrame(rows)
 
 
 def main() -> None:
@@ -152,17 +178,39 @@ def main() -> None:
     out = pd.DataFrame(rows)
     PRED.mkdir(exist_ok=True)
     path = PRED / f"week_{week:02d}.csv"
+    if path.exists() and preregistered:
+        # a pre-registration is write-once: the committed file IS the public claim
+        old = pd.read_csv(path)
+        same_card = sorted(zip(old.bot_a, old.bot_b)) == sorted(zip(out.bot_a, out.bot_b))
+        if same_card:
+            print(f"{path} already pre-registered ({old.generated_at.iloc[0]}) — leaving untouched")
+            write_strengths(df, upcoming, table, wclass)
+            return
+        raise SystemExit(f"REFUSING to overwrite pre-registered {path}: fight card changed "
+                         f"since registration — resolve manually, never silently")
+    if preregistered:
+        # never register a "prediction" for a fight whose result already exists
+        played = pd.read_parquet(CLEAN / "matches_2026.parquet")
+        done = {frozenset((canon(a, table), canon(b, table)))
+                for a, b in zip(played.bot_a, played.bot_b)}
+        overlap = [r.fight for r in out.itertuples()
+                   if frozenset((r.bot_a, r.bot_b)) in done]
+        if overlap:
+            raise SystemExit(f"REFUSING pre-registration: results already exist for {overlap}")
     out.to_csv(path, index=False)
     print(f"wrote {path} (preregistered={preregistered})")
     print(out[["fight", "p_a", "why"]].to_string(index=False))
+    write_strengths(df, upcoming, table, wclass)
 
+
+def write_strengths(df, upcoming, table, wclass) -> None:
     # leaderboard strengths for the 24 Pro League bots
     pro = sorted(set(pd.read_parquet(CLEAN / "matches_2026.parquet").bot_a.map(lambda n: canon(n, table)))
                  | set(pd.read_parquet(CLEAN / "matches_2026.parquet").bot_b.map(lambda n: canon(n, table)))
                  | set(upcoming.bot_a.map(lambda n: canon(n, table)))
                  | set(upcoming.bot_b.map(lambda n: canon(n, table))))
     full_ratings, full_record = ratings_from(df)
-    ci = bootstrap_ci(df, pro)
+    ci = bootstrap_ci(df, pro, full_ratings, full_record)
     strengths = pd.DataFrame({
         "bot": pro,
         "elo": [round(full_ratings.get(b, BASE), 1) for b in pro],

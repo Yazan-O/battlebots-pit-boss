@@ -17,11 +17,20 @@ def run(module: str, argv: list[str] | None = None) -> None:
 
 def main() -> None:
     run("src.pitboss.scrape_season")
-    run("src.pitboss.scrape_buzz")
+    # accountability first: scoring failures must fail the whole run (red CI),
+    # EXCEPT the benign pre-air case of nothing to score yet
     try:
         run("src.pitboss.score")
     except SystemExit as e:
-        print(f"score: {e}")  # no overlap yet is fine on pre-air runs
+        if "no scored fights yet" in str(e):
+            print(f"score: {e}")
+        else:
+            raise
+    # buzz is enrichment: its failure never blocks scoring or prediction
+    try:
+        run("src.pitboss.scrape_buzz")
+    except Exception as e:
+        print(f"buzz FAILED (non-fatal): {e}")
     run("src.pitboss.predict")
 
 
