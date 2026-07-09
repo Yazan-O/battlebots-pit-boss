@@ -25,6 +25,7 @@ SCHEMA = [
     "stage",
     "weight_class",
 ]
+IDENTITY_ALIASES = {"slammow": "slammo", "slawmow": "slammo"}
 
 
 def parse_season(wikitext: str, season_no: int) -> list[dict]:
@@ -41,21 +42,25 @@ def _parse_season_full(wikitext: str, season_no: int) -> tuple[list[dict], list[
     events.sort(key=lambda row: row["_pos"])
 
     rows: list[dict] = []
-    seen: dict[tuple[str, str], int] = {}
     for event in events:
-        key = _pair_key(event["bot_a"], event["bot_b"])
-        if key in seen and _norm_name(rows[seen[key]]["winner"]) == _norm_name(event["winner"]):
-            # same pair + same winner = one fight reported by two sources -> merge.
-            # Same pair with a DIFFERENT winner is a genuine rematch and stays.
-            existing = rows[seen[key]]
-            if existing["date"] is None and event["date"] is not None:
-                existing["date"] = event["date"]
-            if existing["episode"] is None and event["episode"] is not None:
-                existing["episode"] = event["episode"]
-            skipped.append(_skip(season_no, "duplicate", f"{event['bot_a']} vs. {event['bot_b']}"))
-            continue
-        seen[key] = len(rows)
-        rows.append(event)
+        matches = [row for row in rows if _same_fight(row, event)]
+        if len(matches) > 1:
+            skipped.append(_skip(season_no, "ambiguous_duplicate", _event_context(event)))
+            rows.append(event)
+        elif matches:
+            _merge_report(matches[0], event)
+            skipped.append(_skip(season_no, "duplicate_same_fight", _event_context(event)))
+        else:
+            rows.append(event)
+
+    rows = _reconcile_sparse_reports(rows, skipped, season_no)
+
+    identities: dict[tuple, dict] = {}
+    for row in rows:
+        key = _event_identity(row)
+        if key in identities:
+            raise AssertionError(f"conflicting event identity {key}: {identities[key]} vs {row}")
+        identities[key] = row
 
     sources = Counter(row["_source"] for row in rows)
     for i, row in enumerate(rows, 1):
@@ -64,6 +69,75 @@ def _parse_season_full(wikitext: str, season_no: int) -> tuple[list[dict], list[
             row.pop(key, None)
     _validate_rows(rows)
     return rows, skipped, sources
+
+
+def _same_fight(left: dict, right: dict) -> bool:
+    if not _same_result(left, right):
+        return False
+    if left["episode"] is not None and right["episode"] is not None and left["episode"] != right["episode"]:
+        return False
+    if left["date"] is not None and right["date"] is not None and left["date"] != right["date"]:
+        return False
+    same_time = (
+        left["episode"] is not None and left["episode"] == right["episode"]
+    ) or (
+        left["date"] is not None and left["date"] == right["date"]
+    )
+    return same_time or left["stage"] == right["stage"]
+
+
+def _same_result(left: dict, right: dict) -> bool:
+    return _same_outcome(left, right) and left["method"] == right["method"]
+
+
+def _same_outcome(left: dict, right: dict) -> bool:
+    return (_canonical_pair(left["bot_a"], left["bot_b"])
+            == _canonical_pair(right["bot_a"], right["bot_b"])
+            and _identity_name(left["winner"]) == _identity_name(right["winner"]))
+
+
+def _reconcile_sparse_reports(rows: list[dict], skipped: list[dict], season_no: int) -> list[dict]:
+    remove: set[int] = set()
+    for i, row in enumerate(rows):
+        if row["episode"] is not None or row["date"] is not None:
+            continue
+        candidates = [
+            j for j, other in enumerate(rows)
+            if j != i and j not in remove
+            and (other["episode"] is not None or other["date"] is not None)
+            and _same_outcome(row, other)
+        ]
+        if len(candidates) == 1:
+            report = rows[candidates[0]]
+            if row["method"] != report["method"]:
+                skipped.append(_skip(
+                    season_no, "method_conflict",
+                    f"{_event_context(row)}; other={report['method']}/{report['method_raw']}"))
+            _merge_report(row, report)
+            remove.add(candidates[0])
+            skipped.append(_skip(season_no, "duplicate_same_fight", _event_context(report)))
+        elif len(candidates) > 1:
+            skipped.append(_skip(season_no, "ambiguous_sparse_duplicate", _event_context(row)))
+    return [row for i, row in enumerate(rows) if i not in remove]
+
+
+def _merge_report(existing: dict, report: dict) -> None:
+    if existing["date"] is None:
+        existing["date"] = report["date"]
+    if existing["episode"] is None:
+        existing["episode"] = report["episode"]
+
+
+def _event_identity(row: dict) -> tuple:
+    episode = row["episode"]
+    date = None if pd.isna(row["date"]) else row["date"]
+    when = f"episode:{int(episode)}" if pd.notna(episode) else f"date:{date}"
+    return row["season"], when, row["stage"], _canonical_pair(row["bot_a"], row["bot_b"])
+
+
+def _event_context(row: dict) -> str:
+    return (f"episode={row['episode']}; date={row['date']}; stage={row['stage']}; "
+            f"fight={row['bot_a']} vs. {row['bot_b']}; source={row['_source']}")
 
 
 def _parse_roundn_brackets(wikitext: str, season_no: int, skipped: list[dict]) -> list[dict]:
@@ -123,14 +197,17 @@ def _parse_result_tables(wikitext: str, season_no: int, skipped: list[dict]) -> 
         episode = None
         date = None
         row_i = 0
-        for cells in _table_rows(table):
-            if len(cells) < 4:
-                continue
-            if _looks_like_episode_cell(cells[0]):
+        for cells, section in _table_rows(table):
+            if cells and _looks_like_episode_cell(cells[0]):
                 episode = _episode_from_text(cells[0]) or episode
                 date = _date_from_text(cells[0]) or date
+            if len(cells) < 4:
+                continue
             winner, loser, method_raw = _winner_loser_method(cells)
             if not winner or not loser:
+                continue
+            if "exhibition" in section.casefold():
+                skipped.append(_skip(season_no, "exhibition", f"{winner} vs. {loser}"))
                 continue
             method = _normalize_method(method_raw)
             if not method:
@@ -147,7 +224,9 @@ def _parse_episode_blocks(wikitext: str, season_no: int, skipped: list[dict]) ->
         block = block_match.group(0)
         episode = _field_int(block, "EpisodeNumber2")
         date = _start_date(block)
-        block_stage = _stage_from_text(_field_text(block, "Title")) or "qualifier"
+        block_stage = (_stage_from_text(_field_text(block, "Title"))
+                       or _stage_from_episode_intro(_episode_intro(block))
+                       or "qualifier")
         card = _extract_card_text(block)
         if not card:
             continue
@@ -214,10 +293,28 @@ def _extract_card_text(block: str) -> str | None:
     return " ".join(card_lines)
 
 
+def _episode_intro(block: str) -> str:
+    summary = block.split("|ShortSummary=", 1)[-1].split("|LineColor=", 1)[0]
+    return re.split(r"'''(?:Fight Card|Quarter Finals|Quarter-finals)", summary, maxsplit=1)[0]
+
+
+def _stage_from_episode_intro(text: str) -> str | None:
+    lower = text.casefold()
+    if re.search(r"(?:time for the|the) round of 32(?:\W+\w+){0,4}\W+(?:begins|starts|kicks off)|time for the round of 32", lower):
+        return "R32"
+    if re.search(r"the round of 16(?:\W+\w+){0,4}\W+(?:begins|starts|kicks off)", lower):
+        return "R16"
+    if re.search(r"sweet 16 round(?:\W+\w+){0,4}\W+(?:begins|starts|kicks off)", lower):
+        return "R16"
+    return None
+
+
 def _card_items(card: str, default_stage: str, season_no: int, skipped: list[dict]) -> list[dict]:
     text = html.unescape(card)
-    text = re.sub(r",\s*'''(?:MAIN EVENT|Main Event)", r"; '''Main Event", text)
-    text = re.sub(r"\.\s*('''(?:Main Event|Semi|Final)|''\((?:semi|Semi|Final))", r"; \1", text)
+    text = re.sub(
+        r"[,\.]\s*(?='''(?:MAIN EVENT|Main Event|Rumble|Exhibition(?: match)?|Quarter|Semi(?:-finals?)?|Finals?))",
+        "; ", text)
+    text = re.sub(r"\.\s*(?=''\((?:semi|Semi|Final))", "; ", text)
     text = re.sub(r"\.\s*'''Quarter", r"; '''Quarter", text)
     chunks = [chunk.strip() for chunk in text.split(";")]
     items = []
@@ -240,8 +337,10 @@ def _card_items(card: str, default_stage: str, season_no: int, skipped: list[dic
         consume_winner = not youtube
         if youtube:
             skip_reason = "youtube_exclusive"
-        elif any(marker in lower for marker in ("unaired", "exhibition", "science channel exclusive", "digital-exclusive")):
-            skip_reason = "unaired_or_exhibition"
+        elif "exhibition" in lower:
+            skip_reason = "exhibition"
+        elif any(marker in lower for marker in ("unaired", "science channel exclusive", "digital-exclusive")):
+            skip_reason = "non_primary_broadcast"
         elif "rumble" in lower or chunk.casefold().count(" vs") > 1 or " & " in chunk:
             skip_reason = "multi_bot"
         parts = re.split(r"\s+vs\.?\s+", chunk, flags=re.I)
@@ -329,24 +428,35 @@ def _split_table_header_line(line: str) -> list[str]:
     return [_cell_value(part) for part in parts]
 
 
-def _table_rows(table: str) -> list[list[str]]:
-    rows = []
+def _table_rows(table: str) -> list[tuple[list[str], str]]:
+    rows: list[tuple[list[str], str]] = []
     current: list[str] = []
+    section = ""
     in_body = False
     for line in table.splitlines():
         stripped = line.strip()
         if stripped.startswith("|-"):
             if current:
-                rows.append(current)
+                first = _cell_value(current[0])
+                row_section = "" if _looks_like_episode_cell(first) else section
+                rows.append((current, row_section))
+                if _looks_like_episode_cell(first):
+                    section = ""
             current = []
             in_body = True
+            continue
+        if in_body and stripped.startswith("!") and "colspan" in stripped.casefold():
+            if current:
+                rows.append((current, section))
+                current = []
+            section = _clean_wiki(_cell_value(stripped.lstrip("!")))
             continue
         if not in_body or not stripped.startswith("|") or stripped.startswith("|}"):
             continue
         current.extend(_split_table_cell_line(stripped))
     if current:
-        rows.append(current)
-    return [[_cell_value(cell) for cell in row] for row in rows]
+        rows.append((current, section))
+    return [([_cell_value(cell) for cell in row], label) for row, label in rows]
 
 
 def _split_table_cell_line(line: str) -> list[str]:
@@ -491,6 +601,15 @@ def _pair_key(bot_a: str, bot_b: str) -> tuple[str, str]:
     return tuple(sorted((_norm_name(bot_a), _norm_name(bot_b))))
 
 
+def _identity_name(name: str) -> str:
+    normalized = _norm_name(name)
+    return IDENTITY_ALIASES.get(normalized, normalized)
+
+
+def _canonical_pair(bot_a: str, bot_b: str) -> tuple[str, str]:
+    return tuple(sorted((_identity_name(bot_a), _identity_name(bot_b))))
+
+
 def _looks_like_bot(text: str) -> bool:
     text = text.strip()
     if not text or text.isdigit():
@@ -541,13 +660,15 @@ def _stage_from_text(text: str) -> str | None:
     lower = text.casefold()
     if "round of 32" in lower or " r32" in lower or "battle r32" in lower:
         return "R32"
-    if "round of 16" in lower or " r16" in lower or "battle r16" in lower:
+    if "round of 16" in lower or "sweet 16" in lower or " r16" in lower or "battle r16" in lower:
         return "R16"
     if "quarter" in lower or " qf" in lower or "battle qf" in lower:
         return "QF"
     if "semi" in lower or " sf" in lower or "battle sf" in lower:
         return "SF"
-    if re.search(r"\bfinal\b|\bfinals\b|championship", lower):
+    if re.search(r"\bfinal\b|\bfinals\b", lower):
+        return "F"
+    if "championship" in lower and len(lower.split()) <= 3:
         return "F"
     return None
 
@@ -614,7 +735,11 @@ def main() -> None:
     parser.add_argument("--write", action="store_true")
     args = parser.parse_args()
 
+    old_path = Path("data/clean/matches_hist.parquet")
+    old = pd.read_parquet(old_path) if old_path.exists() else pd.DataFrame(columns=SCHEMA)
+    old_counts = old.groupby("season").size().to_dict() if len(old) else {}
     all_rows: list[dict] = []
+    all_skipped: list[dict] = []
     season_counts = {}
     total_skipped = 0
     for season_no in SEASONS:
@@ -623,10 +748,13 @@ def main() -> None:
         else:
             wikitext = _fetch_season(season_no)
         rows, skipped, sources = _parse_season_full(wikitext, season_no)
+        _preserve_match_ids(rows, old[old.season == season_no])
         season_counts[season_no] = len(rows)
         all_rows.extend(rows)
+        all_skipped.extend(skipped)
         total_skipped += len(skipped)
-        print(f"Season {season_no}: parsed {len(rows)} fights; skipped {len(skipped)}")
+        delta = len(rows) - int(old_counts.get(season_no, 0))
+        print(f"Season {season_no}: parsed {len(rows)} fights; delta {delta:+d}; skipped {len(skipped)}")
         print(f"  source split: {_format_counter(sources)}")
         print(f"  skipped: {_format_counter(Counter(item['reason'] for item in skipped))}")
         for sample in rows[:3]:
@@ -638,17 +766,94 @@ def main() -> None:
     modern_total = sum(season_counts.get(season_no, 0) for season_no in (10, 11, 12))
     if modern_total < 300:
         raise AssertionError(f"seasons 10+11+12 below acceptance threshold: {modern_total}")
-    print(f"TOTAL: parsed {len(all_rows)} fights; skipped {total_skipped}")
+    print(f"TOTAL: parsed {len(all_rows)} fights; delta vs 619 {len(all_rows) - 619:+d}; skipped {total_skipped}")
     print("Assertions: winners_in_pair=0 violations; empty_bot_names=0; methods={KO,JD}")
+    df = pd.DataFrame(all_rows, columns=SCHEMA)
+    _print_semantic_changes(old, df)
 
     if args.write or not args.fixtures:
         out_dir = Path("data") / "clean"
         out_dir.mkdir(parents=True, exist_ok=True)
-        df = pd.DataFrame(all_rows, columns=SCHEMA)
         df.to_parquet(out_dir / "matches_hist.parquet", index=False)
         df.to_csv(out_dir / "matches_hist.csv", index=False)
+        quality = Path("data/quality")
+        quality.mkdir(parents=True, exist_ok=True)
+        review = pd.DataFrame(all_skipped, columns=["season", "reason", "context"])
+        review["source_url"] = review.season.map(
+            lambda season: f"https://en.wikipedia.org/w/index.php?title=BattleBots_season_{season}&action=raw")
+        review = review.drop_duplicates().sort_values(["season", "reason", "context"]).reset_index(drop=True)
+        review.to_csv(quality / "needs_review.csv", index=False)
         print("Wrote data/clean/matches_hist.parquet")
         print("Wrote data/clean/matches_hist.csv")
+        print(f"Wrote data/quality/needs_review.csv ({len(review)} parser-skip lines)")
+
+
+def _print_semantic_changes(old: pd.DataFrame, new: pd.DataFrame) -> None:
+    old_rows = Counter(_audit_key(row) for row in old.to_dict("records"))
+    new_rows = Counter(_audit_key(row) for row in new.to_dict("records"))
+    for direction, changes in (("removed", old_rows - new_rows), ("added", new_rows - old_rows)):
+        for key in sorted(changes.elements(), key=str):
+            print(f"CHANGE {direction}: reason={_change_reason(key, direction)}; {_format_audit_key(key)}")
+
+
+def _preserve_match_ids(rows: list[dict], old: pd.DataFrame) -> None:
+    by_row: defaultdict[tuple, list[str]] = defaultdict(list)
+    for record in old.to_dict("records"):
+        by_row[_audit_key(record)].append(str(record["match_id"]))
+    used: set[str] = set()
+    for row in rows:
+        matches = by_row.get(_audit_key(row), [])
+        row["match_id"] = next((match_id for match_id in matches if match_id not in used), "")
+        if row["match_id"]:
+            used.add(row["match_id"])
+    suffixes = [int(match.group(1)) for value in old.match_id.astype(str)
+                if (match := re.search(r"_(\d+)$", value))]
+    next_id = max(suffixes, default=0) + 1
+    for row in rows:
+        if not row["match_id"]:
+            row["match_id"] = f"s{row['season']:02d}_{next_id:03d}"
+            next_id += 1
+
+
+def _audit_key(row: dict) -> tuple:
+    episode = None if pd.isna(row["episode"]) else int(row["episode"])
+    date = None if pd.isna(row["date"]) else str(row["date"])
+    return (
+        int(row["season"]), date, episode,
+        _canonical_pair(str(row["bot_a"]), str(row["bot_b"])),
+        _identity_name(str(row["winner"])), str(row["method"]),
+        str(row["method_raw"]), str(row["stage"]),
+    )
+
+
+def _change_reason(key: tuple, direction: str) -> str:
+    pair = key[3]
+    if pair == _canonical_pair("Tombstone", "Tantrum"):
+        return "dropped_exhibition"
+    if pair == _canonical_pair("Black Dragon", "Slammo!"):
+        return "collapsed_canonical_alias_duplicate"
+    if pair in {
+        _canonical_pair("Lock-Jaw", "Bombshell"),
+        _canonical_pair("Whiplash", "Valkyrie"),
+    }:
+        return "retained_same_winner_rematch" if direction == "added" else "replaced_merged_rematch_hybrid"
+    if pair in {
+        _canonical_pair("Bronco", "Bombshell"),
+        _canonical_pair("Witch Doctor", "Whiplash"),
+        _canonical_pair("Rotator", "Blacksmith"),
+        _canonical_pair("Son of Whyachi", "Copperhead"),
+        _canonical_pair("HyperShock", "HUGE"),
+        _canonical_pair("Nelly the Ellybot", "Deep Six"),
+        _canonical_pair("Minotaur", "Cobalt"),
+    }:
+        return "recovered_parser_alignment"
+    return "cross_source_reconciliation"
+
+
+def _format_audit_key(key: tuple) -> str:
+    season, date, episode, pair, winner, method, method_raw, stage = key
+    return (f"season={season}; date={date}; episode={episode}; pair={pair[0]} vs {pair[1]}; "
+            f"winner={winner}; method={method}/{method_raw}; stage={stage}")
 
 
 def _format_counter(counter: Counter) -> str:

@@ -1,0 +1,164 @@
+season,reason,context,source_url
+7,multi_bot_table,Pre-qualifying,https://en.wikipedia.org/w/index.php?title=BattleBots_season_7&action=raw
+7,multi_bot_table,Semifinals,https://en.wikipedia.org/w/index.php?title=BattleBots_season_7&action=raw
+8,duplicate_same_fight,episode=11; date=2018-08-03; stage=F; fight=Lock-Jaw vs. Lucky; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=11; date=2018-08-03; stage=QF; fight=Gigabyte vs. Double Dutch; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=11; date=2018-08-03; stage=QF; fight=Lock-Jaw vs. Kraken; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=11; date=2018-08-03; stage=QF; fight=Lucky vs. Gemini; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=11; date=2018-08-03; stage=QF; fight=Valkyrie vs. Hypothermia; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=11; date=2018-08-03; stage=SF; fight=Lock-Jaw vs. Valkyrie; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=11; date=2018-08-03; stage=SF; fight=Lucky vs. Gigabyte; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=18; date=2018-09-21; stage=QF; fight=Lock-Jaw vs. Bombshell; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=18; date=2018-09-21; stage=QF; fight=Minotaur vs. Monsoon; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=18; date=2018-09-21; stage=R16; fight=Minotaur vs. Witch Doctor; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=18; date=2018-09-21; stage=R16; fight=SawBlaze vs. Monsoon; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=18; date=2018-09-21; stage=R16; fight=Son of Whyachi vs. Lock-Jaw; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=18; date=2018-09-21; stage=R16; fight=Tombstone vs. Bombshell; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=19; date=2018-09-28; stage=QF; fight=Bite Force vs. ROTATOR; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=19; date=2018-09-28; stage=QF; fight=Bronco vs. Whiplash; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=19; date=2018-09-28; stage=qualifier; fight=Bite Force vs. HUGE; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=19; date=2018-09-28; stage=qualifier; fight=Bronco vs. WAR Hawk; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=19; date=2018-09-28; stage=qualifier; fight=Ice Wave vs. ROTATOR; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=19; date=2018-09-28; stage=qualifier; fight=Yeti vs. Whiplash; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=20; date=2018-10-05; stage=F; fight=Bite Force vs. Whiplash; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=20; date=2018-10-05; stage=F; fight=Minotaur vs. Bite Force; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,duplicate_same_fight,episode=20; date=2018-10-05; stage=F; fight=Minotaur vs. Lock-Jaw; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,exhibition,Tombstone vs. Tantrum,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,exhibition,Tombstone vs. Tantrum (exhibition),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,multi_bot,'''Last Chance Rumble:''' Brutus vs. WAR Hawk vs. End Game,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,multi_bot,'''Rumble:''' Mecha Rampage vs. DUCK! vs. Free Shipping,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,multi_bot,'''Rumble:''' The Four Horsemen vs. Double Jeopardy vs. Gamma 9,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,'''Rumble:''' Basilisk vs. Deviled Egg vs. Axe Backwards (Science Channel exclusive – Mega Fights: Jaws of Death),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,'''Rumble:''' Gemini vs. Mohawk vs. Kraken (Science Channel exclusive – Mega Fights: Do the Fight Thing),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,'''Rumble:''' Kraken vs. Sharkoprion vs. Deviled Egg (Science Channel exclusive – Mega Fights: Let the Battle Begin),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,'''Rumble:''' Valkyrie vs. Bale Spear vs. Predator (Science Channel exclusive – Mega Fights: Robot Rodeo),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Double Dutch vs. Gamma 9 (unaired),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Lucky vs. Reality (Science Channel exclusive – Mega Fights: Fight of the Century),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Mecha Rampage vs. Double Jeopardy (Science Channel exclusive – Mega Fights: King of the Kill),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Mecha Rampage vs. Tantrum (Science Channel exclusive - Mega Fights: Undefeated Showdown),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Parallax & Bale Spear vs. Basilisk & Double Dutch (unaired),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Parallax vs. Ultimo Destructo (unaired),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Predator vs. ROTATOR (unaired),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Sharkoprion vs. Gemini (Science Channel exclusive – Mega Fights: Coming for the King),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Ultimo Destructo vs. Axe Backwards (Science Channel exclusive – Mega Fights: Clash of the Titans),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,non_primary_broadcast,Valkyrie vs. Ultimo Destructo (unaired),https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+8,winner_missing,'''Main Event: (6-Bot Rumble):''' Lucky vs. Bombshell vs. Valkyrie vs. DUCK! vs. Red Devil vs. Gigabyte.,https://en.wikipedia.org/w/index.php?title=BattleBots_season_8&action=raw
+9,duplicate_same_fight,episode=8; date=2019-07-26; stage=F; fight=Minotaur vs. Black Dragon; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,duplicate_same_fight,episode=8; date=2019-07-26; stage=QF; fight=Black Dragon vs. Captain Shrederator; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,duplicate_same_fight,episode=8; date=2019-07-26; stage=QF; fight=End Game vs. Gruff; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,duplicate_same_fight,episode=8; date=2019-07-26; stage=QF; fight=Minotaur vs. Lucky; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,duplicate_same_fight,episode=8; date=2019-07-26; stage=QF; fight=WAR Hawk vs. Ragnarök; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,duplicate_same_fight,episode=8; date=2019-07-26; stage=SF; fight=Black Dragon vs. WAR Hawk; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,duplicate_same_fight,episode=8; date=2019-07-26; stage=SF; fight=Minotaur vs. End Game; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,exhibition,'''Exhibition match''': Nightmare vs. Mammoth (Science Channel exclusive – Battle of the Sweet 16).,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,exhibition,'''Exhibition match''': Ribbot vs. Sharkoprion (Science Channel exclusive – Gears of Glory).,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,exhibition,'''Exhibition matches''': Deep Six vs. Axe Backwards,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,multi_bot,"'''Fight Card''': Bite Force vs. Uppercut, Black Dragon vs. Lock-Jaw, Tombstone vs. Quantum, Whiplash vs. HUGE, Witch Doctor vs. Blacksmith, SawBlaze vs. Son of Whyachi, Hydra vs. Minotaur, DeathRoll vs. Yeti",https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,multi_bot,'''Rumble''': RailGun Max vs. Bloodsport vs. Uppercut,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,'''Rumble''': Double Jeopardy vs. Rainbow vs. Extinguisher (Science Channel exclusive – Reign of Terror),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,'''Rumble:''' Marvin vs. Gruff vs. Gemini (Science Channel exclusive – Mega Fights: Battle of the Beasts),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,Bloodsport vs. The Four Horsemen (Science Channel exclusive - Titan Showdown),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,Chronos vs. Gigabyte (Science Channel exclusive – Mega Fights: The Monster's Lair),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,DeathRoll vs. Foxtrot (Science Channel exclusive – Mega Fights: Hall of Flame),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,Extinguisher vs. The Four Horsemen (Science Channel exclusive – Mega Fights: Duel of the Desperados).,https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,Petunia vs. Marvin (Science Channel exclusive – Mega Fights: Revenge at the Rodeo),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,Ribbot vs. Falcon (Science Channel exclusive – Mega Fights: BattleBox Bloodshed),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,Shatter! vs. Kingpin (Science Channel exclusive - Knockout Mayhem),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,Texas Twister vs. Axe Backwards (Science Channel exclusive – Mega Fights: Blood Feud),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+9,non_primary_broadcast,WAR Hawk vs. Petunia (Science Channel exclusive – Mega Fights: Gears of Apocalypse),https://en.wikipedia.org/w/index.php?title=BattleBots_season_9&action=raw
+10,duplicate_same_fight,episode=11; date=2021-02-18; stage=R32; fight=Beta vs. Ribbot; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=11; date=2021-02-18; stage=R32; fight=Black Dragon vs. SlawMow!; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=11; date=2021-02-18; stage=R32; fight=Hydra vs. HyperShock; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=11; date=2021-02-18; stage=R32; fight=MadCatter vs. Tombstone; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=11; date=2021-02-18; stage=R32; fight=Malice vs. Gigabyte; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=11; date=2021-02-18; stage=R32; fight=Uppercut vs. HiJinx; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=11; date=2021-02-18; stage=R32; fight=Valkyrie vs. SubZero; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=11; date=2021-02-18; stage=R32; fight=Whiplash vs. HUGE; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=12; date=2021-02-25; stage=qualifier; fight=Bloodsport vs. Gruff; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=12; date=2021-02-25; stage=qualifier; fight=Copperhead vs. Mammoth; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=12; date=2021-02-25; stage=qualifier; fight=End Game vs. Perfect Phoenix; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=12; date=2021-02-25; stage=qualifier; fight=Fusion vs. Tantrum; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=12; date=2021-02-25; stage=qualifier; fight=JackPot vs. Rotator; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=12; date=2021-02-25; stage=qualifier; fight=Lock-Jaw vs. Shatter!; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=12; date=2021-02-25; stage=qualifier; fight=SawBlaze vs. Kraken; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=12; date=2021-02-25; stage=qualifier; fight=Skorpios vs. Witch Doctor; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=13; date=2021-03-04; stage=R16; fight=Black Dragon vs. Tombstone; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=13; date=2021-03-04; stage=R16; fight=Bloodsport vs. Tantrum; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=13; date=2021-03-04; stage=R16; fight=End Game vs. Rotator; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=13; date=2021-03-04; stage=R16; fight=Hydra vs. Gigabyte; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=13; date=2021-03-04; stage=R16; fight=SawBlaze vs. Witch Doctor; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=13; date=2021-03-04; stage=R16; fight=Shatter! vs. Mammoth; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=13; date=2021-03-04; stage=R16; fight=Uppercut vs. Ribbot; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=13; date=2021-03-04; stage=R16; fight=Whiplash vs. Valkyrie; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=14; date=2021-03-11; stage=F; fight=Whiplash vs. End Game; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=14; date=2021-03-11; stage=QF; fight=Hydra vs. Whiplash; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=14; date=2021-03-11; stage=QF; fight=Ribbot vs. Black Dragon; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=14; date=2021-03-11; stage=QF; fight=Shatter! vs. End Game; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=14; date=2021-03-11; stage=QF; fight=Tantrum vs. SawBlaze; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=14; date=2021-03-11; stage=SF; fight=Black Dragon vs. Whiplash; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+10,duplicate_same_fight,episode=14; date=2021-03-11; stage=SF; fight=Tantrum vs. End Game; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_10&action=raw
+11,duplicate_same_fight,episode=11; date=2022-03-17; stage=qualifier; fight=Hypershock vs. P1; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=11; date=2022-03-17; stage=qualifier; fight=Minotaur vs. Bloodsport; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=11; date=2022-03-17; stage=qualifier; fight=SawBlaze vs. HiJinx; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=11; date=2022-03-17; stage=qualifier; fight=Shatter! vs. Riptide; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=11; date=2022-03-17; stage=qualifier; fight=Skorpios vs. End Game; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=11; date=2022-03-17; stage=qualifier; fight=Witch Doctor vs. Mammoth; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=12; date=2022-03-24; stage=qualifier; fight=Blip vs. Valkyrie; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=12; date=2022-03-24; stage=qualifier; fight=Cobalt vs. Yeti; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=12; date=2022-03-24; stage=qualifier; fight=Jackpot vs. Tombstone; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=12; date=2022-03-24; stage=qualifier; fight=MadCatter vs. Black Dragon; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=12; date=2022-03-24; stage=qualifier; fight=Ribbot vs. Hydra; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=12; date=2022-03-24; stage=qualifier; fight=Tantrum vs. Gigabyte; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=13; date=2022-03-31; stage=R16; fight=Blip vs. JackPot; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=13; date=2022-03-31; stage=R16; fight=Hydra vs. Black Dragon; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=13; date=2022-03-31; stage=R16; fight=P1 vs. SawBlaze; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=13; date=2022-03-31; stage=R16; fight=Riptide vs. Uppercut; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=13; date=2022-03-31; stage=R16; fight=Tantrum vs. Rotator; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=13; date=2022-03-31; stage=R16; fight=Whiplash vs. Cobalt; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,duplicate_same_fight,episode=13; date=2022-03-31; stage=R16; fight=Witch Doctor vs. Copperhead; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,method_conflict,episode=None; date=None; stage=R16; fight=Hydra vs. Black Dragon; source=bracket; other=JD/UD,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,winner_unmatched,episode=13; fight=and #16 Minotaur vs. #1 End Game; winner=Minotaur,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,#27 Captain Shrederator vs. #6 Rotator,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,#8 Copperhead vs. #25 Lucky,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusive''': Blade vs. Dragon Slayer,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusive''': Captain Shrederator vs. Jäger,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusive''': Claw Viper vs. Pardon My French,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusive''': Deadlift vs. JackPot,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusive''': Deep Six vs. SMEEEEEEEEEEE,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusive''': Defender vs. Retrograde,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusive''': SubZero vs. Shatter,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusive''': Switchback vs. Slammo!,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusive''': Valkyrie vs. Triple Crown,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusives''': #3 Whiplash vs. #30 Icewave,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+11,youtube_exclusive,'''YouTube exclusives''': #5 Uppercut vs. #28 HUGE,https://en.wikipedia.org/w/index.php?title=BattleBots_season_11&action=raw
+12,duplicate_same_fight,episode=16; date=2023-05-04; stage=R32; fight=Claw Viper vs. MadCatter; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=16; date=2023-05-04; stage=R32; fight=Copperhead vs. Rotator; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=16; date=2023-05-04; stage=R32; fight=End Game vs. Tantrum; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=16; date=2023-05-04; stage=R32; fight=HUGE vs. Skorpios; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=16; date=2023-05-04; stage=R32; fight=Lock-Jaw vs. Bloodsport; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=16; date=2023-05-04; stage=R32; fight=Lucky vs. HyperShock; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=16; date=2023-05-04; stage=R32; fight=Riptide vs. Shatter!; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=16; date=2023-05-04; stage=R32; fight=Witch Doctor vs. JackPot; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=17; date=2023-05-11; stage=qualifier; fight=Beta vs. Whiplash; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=17; date=2023-05-11; stage=qualifier; fight=Black Dragon vs. RIPperoni; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=17; date=2023-05-11; stage=qualifier; fight=Cobalt vs. Monsoon; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=17; date=2023-05-11; stage=qualifier; fight=Hydra vs. DeathRoll; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=17; date=2023-05-11; stage=qualifier; fight=Minotaur vs. Fusion; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=17; date=2023-05-11; stage=qualifier; fight=Quantum vs. Ribbot; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=17; date=2023-05-11; stage=qualifier; fight=SawBlaze vs. Blip; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=17; date=2023-05-11; stage=qualifier; fight=Switchback vs. Malice; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=18; date=2023-05-18; stage=R16; fight=Copperhead vs. End Game; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=18; date=2023-05-18; stage=R16; fight=HyperShock vs. Riptide; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=18; date=2023-05-18; stage=R16; fight=Lock-Jaw vs. Witch Doctor; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=18; date=2023-05-18; stage=R16; fight=MadCatter vs. HUGE; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=18; date=2023-05-18; stage=R16; fight=Malice vs. Minotaur; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=18; date=2023-05-18; stage=R16; fight=Monsoon vs. SawBlaze; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=18; date=2023-05-18; stage=R16; fight=Ribbot vs. Black Dragon; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=18; date=2023-05-18; stage=R16; fight=Whiplash vs. Hydra; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=19; date=2023-05-25; stage=F; fight=Copperhead vs. HUGE; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=19; date=2023-05-25; stage=F; fight=Copperhead vs. Riptide; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=19; date=2023-05-25; stage=F; fight=HUGE vs. SawBlaze; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=19; date=2023-05-25; stage=F; fight=HUGE vs. Witch Doctor; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=19; date=2023-05-25; stage=F; fight=Hydra vs. Ribbot; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=19; date=2023-05-25; stage=F; fight=Ribbot vs. SawBlaze; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw
+12,duplicate_same_fight,episode=19; date=2023-05-25; stage=F; fight=SawBlaze vs. Minotaur; source=prose,https://en.wikipedia.org/w/index.php?title=BattleBots_season_12&action=raw

@@ -101,10 +101,10 @@ s08_018,8,3,2018-09-28,19.0,Bite Force,ROTATOR,Bite Force,KO,KO,QF,heavyweight
 s08_019,8,3,2018-09-28,19.0,Whiplash,Bronco,Whiplash,KO,KO,QF,heavyweight
 s08_020,8,3,2018-10-05,20.0,Minotaur,Lock-Jaw,Minotaur,KO,KO,SF,heavyweight
 s08_021,8,3,2018-10-05,20.0,Bite Force,Whiplash,Bite Force,KO,KO,SF,heavyweight
-s08_022,8,3,,,Tombstone,Tantrum,Tombstone,KO,KO,SF,heavyweight
 s08_023,8,3,2018-10-05,20.0,Bite Force,Minotaur,Bite Force,KO,KO,SF,heavyweight
 s08_024,8,3,2018-05-11,1.0,Blacksmith,Bite Force,Bite Force,JD,UD,qualifier,heavyweight
 s08_025,8,3,2018-05-11,1.0,SubZero,HUGE,HUGE,JD,UD,qualifier,heavyweight
+s08_098,8,3,2018-05-11,1.0,Bombshell,Lock-Jaw,Lock-Jaw,KO,KO,qualifier,heavyweight
 s08_026,8,3,2018-05-11,1.0,Tombstone,Minotaur,Tombstone,KO,KO,qualifier,heavyweight
 s08_027,8,3,2018-05-18,2.0,Icewave,Vanquish,Icewave,KO,KO,qualifier,heavyweight
 s08_028,8,3,2018-05-18,2.0,ROTATOR,Petunia,Petunia,JD,UD,qualifier,heavyweight
@@ -129,6 +129,7 @@ s08_046,8,3,2018-06-15,6.0,SawBlaze,Reality,SawBlaze,JD,UD,qualifier,heavyweight
 s08_047,8,3,2018-06-15,6.0,Petunia,Monsoon,Monsoon,KO,KO,qualifier,heavyweight
 s08_048,8,3,2018-06-15,6.0,SubZero,Captain Shrederator,SubZero,KO,KO,qualifier,heavyweight
 s08_049,8,3,2018-06-15,6.0,Chomp,Warrior Dragon,Warrior Dragon,JD,UD,qualifier,heavyweight
+s08_099,8,3,2018-06-15,6.0,Bronco,Bombshell,Bronco,KO,KO,qualifier,heavyweight
 s08_050,8,3,2018-06-22,7.0,Lucky,Son of Whyachi,Son of Whyachi,KO,KO,qualifier,heavyweight
 s08_051,8,3,2018-06-22,7.0,SawBlaze,Mohawk,SawBlaze,KO,KO,qualifier,heavyweight
 s08_052,8,3,2018-06-22,7.0,Mecha Rampage,Whiplash,Whiplash,KO,KO,qualifier,heavyweight
@@ -253,6 +254,8 @@ s09_073,9,4,2019-08-09,9.0,Breaker Box,Uppercut,Uppercut,KO,KO,qualifier,heavywe
 s09_074,9,4,2019-08-09,9.0,WanHoo,Mammoth,WanHoo,JD,3-0 UD,qualifier,heavyweight
 s09_075,9,4,2019-08-09,9.0,Son of Whyachi,Texas Twister,Son of Whyachi,KO,KO,qualifier,heavyweight
 s09_076,9,4,2019-08-09,9.0,SubZero,P1,SubZero,KO,KO,qualifier,heavyweight
+s09_108,9,4,2019-08-09,9.0,Nelly the Ellybot,Deep Six,Deep Six,JD,3-0 UD,qualifier,heavyweight
+s09_109,9,4,2019-08-09,9.0,Witch Doctor,Whiplash,Witch Doctor,JD,3-0 UD,qualifier,heavyweight
 s09_077,9,4,2019-08-16,10.0,Hydra,Petunia,Hydra,KO,KO,qualifier,heavyweight
 s09_078,9,4,2019-08-16,10.0,Yeti,Rainbow,Yeti,KO,KO,qualifier,heavyweight
 s09_079,9,4,2019-08-16,10.0,Skorpios,Tantrum,Skorpios,JD,3-0 UD,qualifier,heavyweight
@@ -284,13 +287,17 @@ s09_104,9,4,2019-09-06,13.0,Hydra,Bronco,Hydra,KO,KO,qualifier,heavyweight
 s09_105,9,4,2019-09-13,14.0,Valkyrie,Quantum,Quantum,KO,KO,qualifier,heavyweight
 s09_106,9,4,2019-09-13,14.0,Yeti,DUCK!,Yeti,JD,3-0 UD,qualifier,heavyweight
 s09_107,9,4,2019-09-13,14.0,Lock-Jaw,Skorpios,Lock-Jaw,KO,KO,qualifier,heavyweight
+s09_110,9,4,2019-09-13,14.0,Hypershock,HUGE,HUGE,KO,KO,qualifier,heavyweight
+s09_111,9,4,2019-09-13,14.0,Rotator,Blacksmith,Blacksmith,JD,3-0 UD,qualifier,heavyweight
+s09_112,9,4,2019-09-13,14.0,Son of Whyachi,Copperhead,Son of Whyachi,KO,KO,qualifier,heavyweight
+s09_113,9,4,2019-09-13,14.0,Minotaur,Cobalt,Minotaur,JD,3-0 UD,qualifier,heavyweight
 s10_001,10,5,2021-02-18,11.0,Hydra,HyperShock,Hydra,KO,KO,R32,heavyweight
 s10_002,10,5,2021-02-18,11.0,Malice,Gigabyte,Gigabyte,KO,KO,R32,heavyweight
 s10_003,10,5,2021-02-18,11.0,Whiplash,HUGE,Whiplash,JD,UD,R32,heavyweight
 s10_004,10,5,2021-02-18,11.0,Valkyrie,SubZero,Valkyrie,KO,KO,R32,heavyweight
 s10_005,10,5,2021-02-18,11.0,Uppercut,HiJinx,Uppercut,KO,KO,R32,heavyweight
 s10_006,10,5,2021-02-18,11.0,Beta,Ribbot,Ribbot,KO,KO,R32,heavyweight
-s10_007,10,5,,,Black Dragon,SlamMow!,Black Dragon,KO,KO,R32,heavyweight
+s10_103,10,5,2021-02-18,11.0,Black Dragon,SlamMow!,Black Dragon,KO,KO,R32,heavyweight
 s10_008,10,5,2021-02-18,11.0,MadCatter,Tombstone,Tombstone,KO,KO,R32,heavyweight
 s10_009,10,5,2021-02-25,12.0,Bloodsport,Gruff,Bloodsport,JD,SD,R32,heavyweight
 s10_010,10,5,2021-02-25,12.0,Fusion,Tantrum,Tantrum,KO,KO,R32,heavyweight
@@ -301,7 +308,7 @@ s10_014,10,5,2021-02-25,12.0,Lock-Jaw,Shatter!,Shatter!,KO,KO,R32,heavyweight
 s10_015,10,5,2021-02-25,12.0,End Game,Perfect Phoenix,End Game,KO,KO,R32,heavyweight
 s10_016,10,5,2021-02-25,12.0,JackPot,Rotator,Rotator,KO,KO,R32,heavyweight
 s10_017,10,5,2021-03-04,13.0,Hydra,Gigabyte,Hydra,JD,UD,R16,heavyweight
-s10_018,10,5,2021-02-11,10.0,Whiplash,Valkyrie,Whiplash,JD,UD,R16,heavyweight
+s10_104,10,5,2021-03-04,13.0,Whiplash,Valkyrie,Whiplash,JD,UD,R16,heavyweight
 s10_019,10,5,2021-03-04,13.0,Uppercut,Ribbot,Ribbot,KO,KO,R16,heavyweight
 s10_020,10,5,2021-03-04,13.0,Black Dragon,Tombstone,Black Dragon,JD,UD,R16,heavyweight
 s10_021,10,5,2021-03-04,13.0,Bloodsport,Tantrum,Tantrum,JD,SD,R16,heavyweight
@@ -385,7 +392,7 @@ s10_098,10,5,2021-02-11,10.0,Gamma 9,Tantrum,Tantrum,KO,KO,qualifier,heavyweight
 s10_099,10,5,2021-02-11,10.0,End Game,HyperShock,End Game,KO,KO,qualifier,heavyweight
 s10_100,10,5,2021-02-11,10.0,SMEEEEEEEEEEE,P1,P1,KO,KO,qualifier,heavyweight
 s10_101,10,5,2021-02-11,10.0,Beta,Grabot,Beta,KO,KO,qualifier,heavyweight
-s10_102,10,5,2021-02-18,11.0,Black Dragon,SlawMow!,Black Dragon,KO,KO,qualifier,heavyweight
+s10_105,10,5,2021-02-11,10.0,Whiplash,Valkyrie,Whiplash,JD,3-0 UD,qualifier,heavyweight
 s11_001,11,6,2022-03-17,11.0,EndGame,Skorpios,EndGame,KO,KO,R32,heavyweight
 s11_002,11,6,2022-03-17,11.0,Minotaur,BloodSport,Minotaur,JD,UD,R32,heavyweight
 s11_003,11,6,,,Copperhead,Lucky,Copperhead,KO,KO,R32,heavyweight
