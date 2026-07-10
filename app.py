@@ -44,7 +44,17 @@ div[data-testid="stMetricValue"] {{ font-family: 'IBM Plex Mono', monospace; }}
 #MainMenu, footer {{ visibility: hidden; }}
 .fight {{ background: var(--panel); border: 1px solid var(--rule);
           border-left: 3px solid var(--accent); border-radius: 2px;
-          padding: .9rem 1.1rem; margin-bottom: .8rem; }}
+          padding: .9rem 1.1rem; margin-bottom: .8rem;
+          transition: transform .18s cubic-bezier(.16,1,.3,1),
+                      box-shadow .18s, border-color .18s; }}
+.fight:hover {{ transform: translateY(-2px);
+                box-shadow: 0 6px 22px rgba(255,179,0,.10), 0 2px 6px rgba(0,0,0,.4);
+                border-color: var(--rule-strong); }}
+.glyph svg {{ transition: transform .5s cubic-bezier(.16,1,.3,1); }}
+.fight:hover .glyph svg {{ transform: rotate(180deg); }}
+@media (prefers-reduced-motion: reduce) {{
+  .fight, .glyph svg, .bar > div {{ transition: none; animation: none; }}
+}}
 .fight .names {{ font-family: 'Barlow Condensed'; font-size: 1.5rem; font-weight: 700; }}
 .fight .why {{ color: var(--ink-2); font-size: .85rem; margin-top: .35rem; }}
 .bar {{ height: 10px; background: var(--rule); border-radius: 2px; margin: .45rem 0 .2rem; }}
@@ -119,9 +129,54 @@ def plotly_layout(fig: go.Figure, **kw) -> go.Figure:
 data = load()
 
 st.title("PIT BOSS")
+# the one spectacle: live arena sparks off a grinding spinner hit (canvas, ~40
+# particles, honors prefers-reduced-motion by freezing to a single frame)
+import streamlit.components.v1 as _components
+_components.html(f"""
+<canvas id="arena" width="1400" height="92" style="width:100%;height:92px;display:block;
+background:{CANVAS};border:1px solid #2a2f36;border-radius:2px"></canvas>
+<script>
+const cv = document.getElementById('arena'), ctx = cv.getContext('2d');
+const W = cv.width, H = cv.height, hit = {{x: W*0.24, y: H*0.62}};
+function stripes() {{
+  ctx.fillStyle = '{CANVAS}'; ctx.fillRect(0,0,W,H);
+  ctx.save(); ctx.globalAlpha = 0.14;
+  for (let x = -H; x < W; x += 46) {{
+    ctx.fillStyle = '{AMBER}';
+    ctx.beginPath(); ctx.moveTo(x,H); ctx.lineTo(x+H,0); ctx.lineTo(x+H+16,0);
+    ctx.lineTo(x+16,H); ctx.fill();
+  }}
+  ctx.restore();
+  ctx.fillStyle = '#3a4149'; ctx.fillRect(0, H-6, W, 2);
+  ctx.beginPath(); ctx.arc(hit.x, hit.y, 5, 0, 7); ctx.fillStyle = '{AMBER}'; ctx.fill();
+}}
+let ps = [];
+function spawn(n) {{
+  for (let i = 0; i < n; i++) ps.push({{
+    x: hit.x, y: hit.y,
+    vx: 1.5 + Math.random()*5.5, vy: -(Math.random()*4.5+1),
+    life: 1, decay: 0.012 + Math.random()*0.02, w: Math.random()*2+0.6 }});
+}}
+function step() {{
+  stripes();
+  spawn(3);
+  ps = ps.filter(p => p.life > 0);
+  for (const p of ps) {{
+    p.x += p.vx; p.y += p.vy; p.vy += 0.11; p.life -= p.decay;
+    if (p.y > H-6 && p.vy > 0) {{ p.vy *= -0.45; p.vx *= 0.8; }}
+    ctx.strokeStyle = 'rgba(255,179,0,' + p.life.toFixed(2) + ')';
+    ctx.lineWidth = p.w;
+    ctx.beginPath(); ctx.moveTo(p.x, p.y);
+    ctx.lineTo(p.x - p.vx*2.2, p.y - p.vy*2.2); ctx.stroke();
+  }}
+  requestAnimationFrame(step);
+}}
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {{
+  stripes(); spawn(40);
+  ps.forEach(p => {{ p.x += p.vx*6; p.y += p.vy*3; }});
+}} else step();
+</script>""", height=100)
 st.markdown(f"""
-<div style="height:8px;background:repeating-linear-gradient(45deg,{AMBER},{AMBER} 14px,
-{CANVAS} 14px,{CANVAS} 28px);border-radius:2px;margin:-.4rem 0 .7rem"></div>
 <span style='color:{MUT}'>The data corner-man of the BattleBots Pro League. Before every
 episode, Pit Boss briefs <b>both corners of every fight</b> — what the public record
 says each team should watch for — built on Bright Data scraping and a model that earns
