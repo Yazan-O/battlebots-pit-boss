@@ -48,7 +48,16 @@ div[data-testid="stMetricValue"] {{ font-family: 'IBM Plex Mono', monospace; }}
 .fight .names {{ font-family: 'Barlow Condensed'; font-size: 1.5rem; font-weight: 700; }}
 .fight .why {{ color: var(--ink-2); font-size: .85rem; margin-top: .35rem; }}
 .bar {{ height: 10px; background: var(--rule); border-radius: 2px; margin: .45rem 0 .2rem; }}
-.bar > div {{ height: 10px; background: var(--accent); border-radius: 2px; }}
+.bar > div {{ height: 10px; background: var(--accent); border-radius: 2px;
+              animation: sweep 1.1s cubic-bezier(.16,1,.3,1); }}
+@keyframes sweep {{ from {{ width: 0; }} }}
+.tape {{ display: flex; align-items: center; gap: .8rem; }}
+.tape .corner {{ flex: 1; display: flex; align-items: center; gap: .55rem; }}
+.tape .corner.right {{ flex-direction: row-reverse; text-align: right; }}
+.tape .vs {{ color: var(--ink-2); font-family: 'Barlow Condensed'; font-size: 1.1rem; }}
+.tape .cls {{ color: var(--ink-2); font-size: .72rem; text-transform: uppercase;
+              letter-spacing: .06em; }}
+.glyph svg {{ display: block; }}
 .pct {{ color: var(--accent); font-weight: 600; font-family: 'IBM Plex Mono', monospace; }}
 .disclaimer {{ color: var(--ink-2); font-size: .78rem; margin-top: 2rem;
                border-top: 1px solid var(--rule); padding-top: .8rem; }}
@@ -69,6 +78,22 @@ def load():
     d["buzz"] = pd.read_csv("data/clean/buzz.csv")
     d["hist"] = pd.read_parquet("data/clean/matches_hist.parquet")
     return d
+
+
+def glyph(cls: str, size: int = 30) -> str:
+    """Hand-drawn weapon-class glyphs — our own SVG, amber line-work."""
+    a, m = AMBER, MUT
+    body = {
+        "spinner-vertical": f'<circle cx="15" cy="15" r="9" fill="none" stroke="{a}" stroke-width="2"/><line x1="15" y1="4" x2="15" y2="26" stroke="{a}" stroke-width="2"/>',
+        "spinner-horizontal": f'<ellipse cx="15" cy="15" rx="11" ry="4.5" fill="none" stroke="{a}" stroke-width="2"/><line x1="2" y1="15" x2="28" y2="15" stroke="{a}" stroke-width="1"/>',
+        "hammer-saw": f'<line x1="7" y1="24" x2="20" y2="8" stroke="{a}" stroke-width="2"/><rect x="17" y="4" width="9" height="7" rx="1" fill="{a}"/>',
+        "flipper": f'<path d="M4 22 L24 22 L24 12 Z" fill="none" stroke="{a}" stroke-width="2"/><path d="M20 8 q4 -4 8 0" fill="none" stroke="{m}" stroke-width="1.6"/>',
+        "control-wedge": f'<path d="M4 23 L26 23 L26 15 Z" fill="{a}"/>',
+        "crusher": f'<path d="M6 8 L15 20 L24 8" fill="none" stroke="{a}" stroke-width="2.4"/><line x1="15" y1="20" x2="15" y2="26" stroke="{m}" stroke-width="1.6"/>',
+        "multibot": f'<rect x="4" y="12" width="9" height="9" fill="none" stroke="{a}" stroke-width="2"/><rect x="17" y="9" width="7" height="7" fill="none" stroke="{a}" stroke-width="2"/>',
+    }.get(cls, f'<rect x="6" y="6" width="18" height="18" fill="none" stroke="{m}" stroke-width="2"/>')
+    return (f'<span class="glyph"><svg width="{size}" height="{size}" viewBox="0 0 30 30" '
+            f'xmlns="http://www.w3.org/2000/svg">{body}</svg></span>')
 
 
 def tile(col, label: str, value: str, sub: str = "") -> None:
@@ -117,11 +142,19 @@ with tab_week:
                else "retrospective backfill (honestly labeled, not part of the record)")
         st.subheader(f"Week {wk} fight card — episode {int(pred.episode.iloc[0])}, airs {pred.date.iloc[0]}")
         st.caption(f"model test specimens · {tag} · registered {pred.generated_at.iloc[0]} · {pred.model_version.iloc[0]}")
+        wclass = dict(pd.read_csv("data/clean/weapon_classes.csv")[["bot", "weapon_class"]].values)
         for r in pred.itertuples():
             fav, p = (r.bot_a, r.p_a) if r.p_a >= 0.5 else (r.bot_b, 1 - r.p_a)
+            ca, cb = wclass.get(r.bot_a, "other"), wclass.get(r.bot_b, "other")
             st.markdown(f"""
 <div class="fight">
-  <div class="names">{r.bot_a} <span style="color:{MUT}">vs</span> {r.bot_b}</div>
+  <div class="tape">
+    <div class="corner">{glyph(ca)}<div><div class="names">{r.bot_a}</div>
+      <div class="cls">{ca.replace('-', ' ')}</div></div></div>
+    <div class="vs">VS</div>
+    <div class="corner right">{glyph(cb)}<div><div class="names">{r.bot_b}</div>
+      <div class="cls">{cb.replace('-', ' ')}</div></div></div>
+  </div>
   <div class="bar"><div style="width:{r.p_a*100:.0f}%"></div></div>
   <div><span class="pct">model leans {fav} {p:.0%}</span>
        <span style="color:{MUT};font-size:.8rem"> · uncertainty is the product, not a bug</span></div>
