@@ -1,4 +1,7 @@
 match_id,season,group,episode,date,bot_a,bot_b,winner,method,stage,weight_class
-pl26_001,2026,D,101,2026-07-02,End Game,Malice,Malice,,group,heavyweight
-pl26_002,2026,D,101,2026-07-02,Golden Fury,DeathRoll,Golden Fury,,group,heavyweight
-pl26_003,2026,E,101,2026-07-02,HUGE,HyperShock,HUGE,,group,heavyweight
+pl26_001,2026,A,102,2026-07-09,Manta,Skorpios,Manta,,group,heavyweight
+pl26_002,2026,B,102,2026-07-09,Tombstone,MadCatter,MadCatter,,group,heavyweight
+pl26_003,2026,C,102,2026-07-09,JackPot,Copperhead,Copperhead,,group,heavyweight
+pl26_004,2026,D,101,2026-07-02,End Game,Malice,Malice,,group,heavyweight
+pl26_005,2026,D,101,2026-07-02,Golden Fury,DeathRoll,Golden Fury,,group,heavyweight
+pl26_006,2026,E,101,2026-07-02,HUGE,HyperShock,HUGE,,group,heavyweight

@@ -1,0 +1,89 @@
+{
+  "episode": 103,
+  "date": "2026-07-16",
+  "fights": [
+    {
+      "bot_a": "Terrortops",
+      "bot_b": "Valkyrie",
+      "group": "A",
+      "briefs": {
+        "Terrortops": {
+          "vs": "Valkyrie",
+          "lines": [
+            "Terrortops has only 2 recorded fight(s) \u2014 no meaningful record; treat every claim about Terrortops here as unknown.",
+            "Valkyrie's finishing threat: 5 of its 10 wins (50%) came by KO \u2014 it more often grinds out decisions.",
+            "spinner-vertical has beaten spinner-horizontal in 61% of 142 recorded meetings \u2014 the class is favored on paper.",
+            "Those spinner-vertical-vs-spinner-horizontal fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Valkyrie": {
+          "vs": "Terrortops",
+          "lines": [
+            "spinner-horizontal has beaten spinner-vertical in 39% of 142 recorded meetings \u2014 the class is the underdog on paper.",
+            "Those spinner-horizontal-vs-spinner-vertical fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Valkyrie's own exposure: knocked out in 4 of its 9 losses (44%) \u2014 it can be finished.",
+            "Valkyrie's 10 wins: 50% by KO.",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    },
+    {
+      "bot_a": "Disarray",
+      "bot_b": "Magnitude",
+      "group": "B",
+      "briefs": {
+        "Disarray": {
+          "vs": "Magnitude",
+          "lines": [
+            "Disarray has only 0 recorded fight(s) \u2014 no meaningful record; treat every claim about Disarray here as unknown.",
+            "Mirror matchup \u2014 both bots are spinner-vertical; class record offers no paper edge (120 past spinner-vertical-vs-spinner-vertical meetings, 64% ended in KO).",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Magnitude": {
+          "vs": "Disarray",
+          "lines": [
+            "Magnitude has only 0 recorded fight(s) \u2014 no meaningful record; treat every claim about Magnitude here as unknown.",
+            "Mirror matchup \u2014 both bots are spinner-vertical; class record offers no paper edge (120 past spinner-vertical-vs-spinner-vertical meetings, 64% ended in KO).",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    },
+    {
+      "bot_a": "Switchback",
+      "bot_b": "Ribbot",
+      "group": "F",
+      "briefs": {
+        "Switchback": {
+          "vs": "Ribbot",
+          "lines": [
+            "Ribbot's finishing threat: 11 of its 11 wins (100%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-vertical has beaten spinner-horizontal in 61% of 142 recorded meetings \u2014 the class is favored on paper.",
+            "Those spinner-vertical-vs-spinner-horizontal fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Switchback's own exposure: knocked out in 3 of its 4 losses (75%) \u2014 it can be finished.",
+            "Switchback's 3 wins: 67% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Ribbot": {
+          "vs": "Switchback",
+          "lines": [
+            "Switchback's finishing threat: 2 of its 3 wins (67%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-horizontal has beaten spinner-vertical in 39% of 142 recorded meetings \u2014 the class is the underdog on paper.",
+            "Those spinner-horizontal-vs-spinner-vertical fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Ribbot's own exposure: knocked out in 2 of its 9 losses (22%) \u2014 hard to put away.",
+            "Ribbot's 11 wins: 100% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    }
+  ]
+}

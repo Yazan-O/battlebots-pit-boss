@@ -1,0 +1,4 @@
+week,episode,date,fight,bot_a,bot_b,p_a,model_version,generated_at,preregistered,why
+3,103,2026-07-16,Terrortops vs Valkyrie,Terrortops,Valkyrie,0.6102,elo-k80-v2,2026-07-10T22:34:18+00:00,True,"Terrortops carries a 78-point Elo edge (1573 vs 1495); career 2-0 vs 10-9; spinner vertical vs spinner horizontal; Terrortops has only 2 recorded fights - low data, wide uncertainty"
+3,103,2026-07-16,Disarray vs Magnitude,Disarray,Magnitude,0.5,elo-k80-v2,2026-07-10T22:34:18+00:00,True,"Disarray carries a 0-point Elo edge (1500 vs 1500); career 0-0 vs 0-0; Disarray has only 0 recorded fights - low data, wide uncertainty; Magnitude has only 0 recorded fights - low data, wide uncertainty"
+3,103,2026-07-16,Switchback vs Ribbot,Switchback,Ribbot,0.2473,elo-k80-v2,2026-07-10T22:34:18+00:00,True,Ribbot carries a 193-point Elo edge (1677 vs 1484); career 3-4 vs 11-9; spinner vertical vs spinner horizontal

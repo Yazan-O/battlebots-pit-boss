@@ -1,25 +1,25 @@
 bot,elo,career_w,career_l,weapon_class,ci_lo,ci_hi,ci_kind
-Minotaur,1819.1,25,10,spinner-vertical,1612.5,1887.1,bootstrap
-HUGE,1795.5,19,10,spinner-vertical,1598.2,1888.3,bootstrap
-Witch Doctor,1758.6,25,13,spinner-vertical,1577.2,1857.9,bootstrap
-Copperhead,1730.6,14,7,spinner-vertical,1525.2,1814.9,bootstrap
-End Game,1698.3,19,11,spinner-vertical,1474.8,1787.1,bootstrap
-Ribbot,1677.0,11,9,spinner-horizontal,1481.3,1755.9,bootstrap
-Malice,1626.8,8,6,spinner-vertical,1449.9,1711.8,bootstrap
-Cobalt,1605.3,10,8,spinner-horizontal,1418.6,1700.7,bootstrap
-MadCatter,1583.9,8,6,spinner-vertical,1377.3,1668.8,bootstrap
-Terrortops,1573.1,2,0,spinner-vertical,1379.1,1722.4,prior-band
-Tombstone,1564.3,21,9,spinner-horizontal,1376.4,1653.0,bootstrap
-HyperShock,1562.3,13,16,spinner-vertical,1374.9,1638.2,bootstrap
-Bloodsport,1552.5,10,7,spinner-horizontal,1373.5,1664.8,bootstrap
-Golden Fury,1548.2,1,0,spinner-vertical,1379.1,1722.4,prior-band
-JackPot,1544.0,6,5,spinner-vertical,1360.4,1642.7,bootstrap
-DeathRoll,1523.6,7,6,spinner-vertical,1359.8,1628.1,bootstrap
-Skorpios,1519.9,11,11,hammer-saw,1323.3,1592.6,bootstrap
-Disarray,1500.0,0,0,spinner-vertical,1379.1,1722.4,prior-band
-Magnitude,1500.0,0,0,spinner-vertical,1379.1,1722.4,prior-band
-Manta,1500.0,0,0,spinner-vertical,1379.1,1722.4,prior-band
-Orbitron,1500.0,0,0,spinner-vertical,1379.1,1722.4,prior-band
-The Twins,1500.0,0,0,spinner-vertical,1379.1,1722.4,prior-band
-Valkyrie,1495.2,10,9,spinner-horizontal,1332.9,1633.0,bootstrap
-Switchback,1483.7,3,4,spinner-vertical,1362.2,1614.9,bootstrap
+Minotaur,1819.1,25,10,spinner-vertical,1621.8,1883.3,bootstrap
+HUGE,1795.5,19,10,spinner-vertical,1589.8,1881.3,bootstrap
+Witch Doctor,1758.6,25,13,spinner-vertical,1572.1,1835.9,bootstrap
+Copperhead,1751.0,15,7,spinner-vertical,1531.1,1843.4,bootstrap
+End Game,1698.3,19,11,spinner-vertical,1491.5,1754.8,bootstrap
+Ribbot,1677.0,11,9,spinner-horizontal,1473.6,1754.2,bootstrap
+Malice,1626.8,8,6,spinner-vertical,1456.5,1716.8,bootstrap
+MadCatter,1621.7,9,6,spinner-vertical,1421.0,1704.7,bootstrap
+Cobalt,1605.3,10,8,spinner-horizontal,1424.3,1711.1,bootstrap
+Terrortops,1573.1,2,0,spinner-vertical,1379.2,1722.2,prior-band
+HyperShock,1562.3,13,16,spinner-vertical,1372.6,1648.6,bootstrap
+Bloodsport,1552.5,10,7,spinner-horizontal,1374.0,1666.4,bootstrap
+Golden Fury,1548.2,1,0,spinner-vertical,1379.2,1722.2,prior-band
+Manta,1542.3,1,0,spinner-vertical,1379.2,1722.2,prior-band
+Tombstone,1526.5,21,10,spinner-horizontal,1334.5,1623.0,bootstrap
+DeathRoll,1523.6,7,6,spinner-vertical,1352.2,1620.5,bootstrap
+JackPot,1523.6,6,6,spinner-vertical,1341.0,1640.9,bootstrap
+Disarray,1500.0,0,0,spinner-vertical,1379.2,1722.2,prior-band
+Orbitron,1500.0,0,0,spinner-vertical,1379.2,1722.2,prior-band
+Magnitude,1500.0,0,0,spinner-vertical,1379.2,1722.2,prior-band
+The Twins,1500.0,0,0,spinner-vertical,1379.2,1722.2,prior-band
+Valkyrie,1495.2,10,9,spinner-horizontal,1326.6,1632.6,bootstrap
+Switchback,1483.7,3,4,spinner-vertical,1368.0,1608.0,bootstrap
+Skorpios,1477.6,11,12,hammer-saw,1293.3,1556.1,bootstrap
