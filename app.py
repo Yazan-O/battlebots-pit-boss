@@ -233,6 +233,7 @@ with tab_record:
     def scoretable(df):
         show = df[["episode", "fight", "predicted_winner", "p_predicted",
                    "actual_winner", "hit"]].copy()
+        show = show.rename(columns={"predicted_winner": "forecast_winner", "p_predicted": "p_forecast"})
         show["hit"] = show.hit.map({1: "✓ hit", 0: "✗ miss"})
         return show.style.map(
             lambda v: f"color: {'#4c9e6a' if v == '✓ hit' else '#b0524d'}; font-weight: 600",
