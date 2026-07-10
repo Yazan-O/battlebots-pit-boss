@@ -1,4 +1,4 @@
-"""Pit Boss — live BattleBots Pro League predictions, publicly scored.
+"""Pit Boss — a public forecasting-methodology experiment on the BattleBots Pro League.
 
 Reads everything from data/ in this repo; every data commit refreshes the site.
 """
@@ -21,7 +21,7 @@ CANVAS = "#111418"
 PANEL = "#191d23"
 GRID = "#22262c"
 
-st.set_page_config(page_title="Pit Boss — BattleBots Pro League predictions",
+st.set_page_config(page_title="Pit Boss — the BattleBots accountability experiment",
                    page_icon="assets/favicon.png", layout="wide")
 
 st.markdown(f"""
@@ -94,32 +94,38 @@ def plotly_layout(fig: go.Figure, **kw) -> go.Figure:
 data = load()
 
 st.title("PIT BOSS")
-st.markdown(f"<span style='color:{MUT}'>Pre-registered win predictions for the live "
-            "BattleBots Pro League season, powered by Bright Data — published before "
-            "every episode, publicly scored after. "
-            "<a href='https://github.com/Yazan-O/battlebots-pit-boss' style='color:#FFB300'>"
-            "Verify the git timestamps yourself</a>.</span>", unsafe_allow_html=True)
+st.markdown(f"""
+<div style="height:8px;background:repeating-linear-gradient(45deg,{AMBER},{AMBER} 14px,
+{CANVAS} 14px,{CANVAS} 28px);border-radius:2px;margin:-.4rem 0 .7rem"></div>
+<span style='color:{MUT}'>A public experiment in honest forecasting methodology, run on
+the BattleBots Pro League and powered by Bright Data. Every week the model's numbers
+are frozen in git <b>before</b> the episode airs; after it airs, the model is scored in
+public — hits and misses, forever. The forecasts are test specimens, not advice.
+<a href='https://github.com/Yazan-O/battlebots-pit-boss' style='color:{AMBER}'>
+Verify the timestamps yourself</a>.</span>""", unsafe_allow_html=True)
 
 tab_week, tab_record, tab_board, tab_hype = st.tabs(
-    ["THIS WEEK", "TRACK RECORD", "LEADERBOARD", "HYPE VS PERFORMANCE"])
+    ["FIGHT CARD", "THE RECORD", "POWER BOARD", "HYPE CHECK"])
 
 with tab_week:
     pred = data["pred"]
     if pred is None:
-        st.write("No prediction file yet.")
+        st.write("No registered fight card yet.")
     else:
         wk = int(pred.week.iloc[0])
-        tag = "pre-registered" if bool(pred.preregistered.iloc[0]) else "retrospective (honestly labeled)"
-        st.subheader(f"Week {wk} — episode {int(pred.episode.iloc[0])}, airs {pred.date.iloc[0]} · {tag}")
-        st.caption(f"predictions generated {pred.generated_at.iloc[0]} · model {pred.model_version.iloc[0]}")
+        tag = ("frozen in git before air" if bool(pred.preregistered.iloc[0])
+               else "retrospective backfill (honestly labeled, not part of the record)")
+        st.subheader(f"Week {wk} fight card — episode {int(pred.episode.iloc[0])}, airs {pred.date.iloc[0]}")
+        st.caption(f"model test specimens · {tag} · registered {pred.generated_at.iloc[0]} · {pred.model_version.iloc[0]}")
         for r in pred.itertuples():
             fav, p = (r.bot_a, r.p_a) if r.p_a >= 0.5 else (r.bot_b, 1 - r.p_a)
             st.markdown(f"""
 <div class="fight">
   <div class="names">{r.bot_a} <span style="color:{MUT}">vs</span> {r.bot_b}</div>
   <div class="bar"><div style="width:{r.p_a*100:.0f}%"></div></div>
-  <div><span class="pct">{fav} {p:.0%}</span></div>
-  <div class="why">{r.why}</div>
+  <div><span class="pct">model leans {fav} {p:.0%}</span>
+       <span style="color:{MUT};font-size:.8rem"> · uncertainty is the product, not a bug</span></div>
+  <div class="why">TALE OF THE TAPE — {r.why}</div>
 </div>""", unsafe_allow_html=True)
 
         st.divider()
@@ -170,7 +176,7 @@ with tab_record:
     # THE track record is pre-registered fights only — nothing else counts
     if pre is None or pre.empty:
         st.subheader("Awaiting the first pre-registered result")
-        st.markdown(f"<span style='color:{MUT}'>Week-2 predictions are committed and "
+        st.markdown(f"<span style='color:{MUT}'>The week-2 fight card is committed and "
                     "frozen (see the git timestamp) — the first accountable scores land "
                     "when episode 102 airs. Nothing here will ever be backfilled.</span>",
                     unsafe_allow_html=True)
