@@ -122,12 +122,13 @@ st.title("PIT BOSS")
 st.markdown(f"""
 <div style="height:8px;background:repeating-linear-gradient(45deg,{AMBER},{AMBER} 14px,
 {CANVAS} 14px,{CANVAS} 28px);border-radius:2px;margin:-.4rem 0 .7rem"></div>
-<span style='color:{MUT}'>A public experiment in honest forecasting methodology, run on
-the BattleBots Pro League and powered by Bright Data. Every week the model's numbers
-are frozen in git <b>before</b> the episode airs; after it airs, the model is scored in
-public — hits and misses, forever. The forecasts are test specimens, not advice.
+<span style='color:{MUT}'>The data corner-man of the BattleBots Pro League. Before every
+episode, Pit Boss briefs <b>both corners of every fight</b> — what the public record
+says each team should watch for — built on Bright Data scraping and a model that earns
+its credibility the hard way: its numbers are frozen in git before air and scored in
+public after, hits and misses forever. Not betting advice — advice to builders.
 <a href='https://github.com/Yazan-O/battlebots-pit-boss' style='color:{AMBER}'>
-Verify the timestamps yourself</a>.</span>""", unsafe_allow_html=True)
+Verify the record yourself</a>.</span>""", unsafe_allow_html=True)
 
 tab_week, tab_record, tab_board, tab_hype = st.tabs(
     ["FIGHT CARD", "THE RECORD", "POWER BOARD", "HYPE CHECK"])
@@ -170,17 +171,19 @@ with tab_week:
 </div>""", unsafe_allow_html=True)
             brief = corner_briefs.get(frozenset((r.bot_a, r.bot_b)))
             if brief:
-                with st.expander(f"CORNER BRIEF — what the public record says, both corners"):
-                    c_a, c_b = st.columns(2)
-                    for col, side in ((c_a, r.bot_a), (c_b, r.bot_b)):
-                        lines = brief.get(side, [])
-                        col.markdown(f"**{side}'s corner**")
-                        for ln in lines:
-                            col.markdown(f"<div style='color:{MUT};font-size:.84rem;"
-                                         f"margin-bottom:.3rem'>▪ {ln}</div>",
-                                         unsafe_allow_html=True)
-                    st.caption("Public-data view only — the teams know their bots. "
-                               "Every number is computable from data/clean/.")
+                # the briefs ARE the product — always visible, never folded away
+                c_a, c_b = st.columns(2)
+                for col, side in ((c_a, r.bot_a), (c_b, r.bot_b)):
+                    col.markdown(f"<div style='font-family:Barlow Condensed;font-size:1.05rem;"
+                                 f"color:{AMBER};letter-spacing:.04em'>{side.upper()}'S CORNER</div>",
+                                 unsafe_allow_html=True)
+                    for ln in brief.get(side, []):
+                        col.markdown(f"<div style='color:{MUT};font-size:.84rem;"
+                                     f"margin-bottom:.3rem'>▪ {ln}</div>",
+                                     unsafe_allow_html=True)
+                st.caption("Public-data view only — the teams know their bots. Every "
+                           "number is computable from data/clean/. Model lean above is "
+                           "the credibility test, not the point.")
 
         st.divider()
         st.subheader("SCOUT REPORT")

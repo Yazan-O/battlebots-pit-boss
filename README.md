@@ -1,8 +1,10 @@
 # Pit Boss
 
-Pit Boss scrapes the live BattleBots Pro League season with Bright Data, freezes its
-model's forecast tests in git before every episode airs, and scores itself in
-public after — an accountability experiment you can verify commit by commit.
+Pit Boss is the data corner-man of the BattleBots Pro League: before every episode it
+briefs both corners of every fight — what the public record says each team should
+watch for — built on Bright Data scraping and a model that earns its credibility the
+hard way: its numbers are frozen in git before air and scored in public after, hits
+and misses forever.
 
 *Built for #BattleBotsDev. Full docs land with the season; the live demo and the growing public record are already running.*
 
