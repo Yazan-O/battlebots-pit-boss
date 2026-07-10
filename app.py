@@ -7,7 +7,6 @@ gold reserved for the brand and THE RECORD.
 from __future__ import annotations
 
 import json
-import math
 import os
 from pathlib import Path
 
@@ -91,15 +90,6 @@ h1,h2,h3 {{ font-family:var(--disp); text-transform:uppercase; letter-spacing:.0
   border-bottom:2px solid var(--gold); padding:0 .5rem .1rem; }}
 .glyph svg {{ display:block; transition:transform .6s cubic-bezier(.16,1,.3,1); }}
 .plate:hover .glyph.spin svg {{ transform:rotate(180deg); }}
-.probwrap {{ padding:0 2.4rem 1.2rem; }}
-.prob {{ display:flex; height:12px; background:var(--surface2); overflow:hidden; }}
-.prob .pa {{ background:var(--red); transform-origin:left; animation:grow .9s cubic-bezier(.16,1,.3,1); }}
-.prob .pb {{ background:var(--blue); flex:1; transform-origin:right; animation:grow .9s cubic-bezier(.16,1,.3,1); }}
-@keyframes grow {{ from {{ transform:scaleX(0); }} }}
-.probnum {{ display:flex; justify-content:space-between; align-items:baseline; margin-top:.55rem; }}
-.probnum .a {{ color:var(--red); }} .probnum .b {{ color:var(--blue); }}
-.probnum .a, .probnum .b {{ font-family:var(--mono); font-weight:600; font-size:1.35rem; }}
-.probnum .mid {{ color:var(--muted); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; }}
 .briefs {{ display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--border); }}
 .brief {{ padding:1.2rem 2.4rem 1.4rem; }}
 .brief.r {{ border-right:1px solid var(--border); }}
@@ -234,9 +224,9 @@ sc = data["scorecard"]
 pre = sc[sc.preregistered] if sc is not None else None
 chip = ""
 if pre is not None and not pre.empty:
-    chip = (f'<div class="chip"><div class="lbl">THE RECORD — FROZEN BEFORE AIR</div>'
-            f'<div class="val">{int(pre.hit.sum())}/{len(pre)} <small>hits</small> · '
-            f'{pre.log_loss.mean():.3f} <small>log-loss vs coin 0.693</small></div></div>')
+    chip = (f'<div class="chip"><div class="lbl">OUR READS, GRADED IN PUBLIC</div>'
+            f'<div class="val">{int(pre.hit.sum())}/{len(pre)} <small>confirmed · frozen in git '
+            f'before air</small></div></div>')
 st.markdown(f"""
 <div class="mast">
   <div><div class="t">Pit Boss</div>
@@ -246,12 +236,12 @@ st.markdown(f"""
 <div class="haz"></div>
 """, unsafe_allow_html=True)
 with st.expander("What is this?"):
-    st.markdown(f"""<span class="note">Before every episode, Pit Boss briefs <b>both corners
-of every fight</b> — what the public record says each team should watch for — built on
-Bright Data scraping and a model that earns its credibility the hard way: its numbers are
-frozen in git before air and scored in public after, hits and misses forever. Not betting
-advice — advice to builders. Corner briefs are a public-data view only — the teams know
-their bots; every number is computable from data/clean/.
+    st.markdown(f"""<span class="note">Before every episode, Pit Boss talks to <b>both corners
+of every fight</b> — what the public record says each team should watch for, built on Bright
+Data scraping. The briefs earn their credibility the hard way: every read is frozen in git
+before air and graded in public after, right or wrong, forever. Not betting advice — advice
+to builders. Corner briefs are a public-data view only — the teams know their bots; every
+number is computable from data/clean/.
 <a href="https://github.com/Yazan-O/battlebots-pit-boss" style="color:{GOLD}">Verify the
 record yourself</a>.</span>""", unsafe_allow_html=True)
 
@@ -265,12 +255,12 @@ with tab_week:
     else:
         wk = int(pred.week.iloc[0])
         ep = int(pred.episode.iloc[0])
-        tag = ("FROZEN IN GIT BEFORE AIR" if bool(pred.preregistered.iloc[0])
+        tag = ("BRIEFED + FROZEN IN GIT BEFORE AIR" if bool(pred.preregistered.iloc[0])
                else "RETROSPECTIVE BACKFILL — NOT PART OF THE RECORD")
         st.markdown(f'<div style="display:flex;justify-content:space-between;align-items:baseline;'
                     f'flex-wrap:wrap;margin-top:.4rem"><h3 style="margin:0">Week {wk} — Episode {ep} '
                     f'· airs {pred.date.iloc[0]}</h3><span style="font-family:var(--mono);color:{MUT};'
-                    f'font-size:.68rem;letter-spacing:.16em">{tag} · {pred.model_version.iloc[0]}</span></div>',
+                    f'font-size:.68rem;letter-spacing:.16em">{tag}</span></div>',
                     unsafe_allow_html=True)
         corner_briefs = {}
         corner_path = Path(f"data/corner/week_{ep}.json")
@@ -283,19 +273,18 @@ with tab_week:
         # the em-dash; the full untruncated brief lives in the drawer below each plate
         def leads(lines: list[str]) -> list[str]:
             keep = [ln for ln in lines if not ln.startswith("No Pro League")]
-            return [ln.split(" — ")[0].rstrip(".") for ln in keep[:2]]
+            return [ln.split(" — ")[0].rstrip(".") for ln in keep[:3]]
 
         for i, r in enumerate(pred.itertuples()):
             ca, cb = data["wclass"].get(r.bot_a, "other"), data["wclass"].get(r.bot_b, "other")
-            pa = round(r.p_a * 100)
             brief = corner_briefs.get(frozenset((r.bot_a, r.bot_b)), {})
             bl_a = "".join(f"<li>{ln}</li>" for ln in leads(brief.get(r.bot_a, [])))
             bl_b = "".join(f"<li>{ln}</li>" for ln in leads(brief.get(r.bot_b, [])))
             briefs_html = ""
             if bl_a or bl_b:
                 briefs_html = (f'<div class="briefs">'
-                               f'<div class="brief r"><h4>{r.bot_a}&#8217;s corner</h4><ul>{bl_a}</ul></div>'
-                               f'<div class="brief b"><h4>{r.bot_b}&#8217;s corner</h4><ul>{bl_b}</ul></div></div>')
+                               f'<div class="brief r"><h4>{r.bot_a}&#8217;s corner — watch for</h4><ul>{bl_a}</ul></div>'
+                               f'<div class="brief b"><h4>{r.bot_b}&#8217;s corner — watch for</h4><ul>{bl_b}</ul></div></div>')
             full_a = "".join(f"<li>{ln}</li>" for ln in brief.get(r.bot_a, []))
             full_b = "".join(f"<li>{ln}</li>" for ln in brief.get(r.bot_b, []))
             drawer = (f'<div class="briefs" style="border-top:none">'
@@ -310,12 +299,6 @@ with tab_week:
     <div class="vs">VS</div>
     <div class="corner b">{glyph(cb, BLUE)}<div><div class="tag">BLUE CORNER</div>
       <div class="nm">{r.bot_b}</div><div class="cl">{cb.replace('-', ' ')}</div></div></div>
-  </div>
-  <div class="probwrap">
-    <div class="prob"><div class="pa" style="width:{pa}%"></div><div class="pb"></div></div>
-    <div class="probnum"><span class="a">{pa}</span>
-      <span class="mid">model lean — {"even" if pa == 50 else (r.bot_a if r.p_a > .5 else r.bot_b)}</span>
-      <span class="b">{100 - pa}</span></div>
   </div>
   {briefs_html}
   <details class="tape-d"><summary>TALE OF THE TAPE</summary>
@@ -363,68 +346,56 @@ with tab_week:
                 st.write(f"No cached report for {pick} yet — reports refresh weekly.")
 
 with tab_record:
-    coin = math.log(2)
-    # THE track record is pre-registered fights only — nothing else counts
+    # the accountable record: our pre-air reads, graded in public — nothing else counts
+    def grade_rows(df, dim: bool = False) -> str:
+        rows = ""
+        style = ' style="opacity:.75"' if dim else ""
+        for r in df.itertuples():
+            ok = int(r.hit) == 1
+            rows += (f'<div class="row"{style}>'
+                     f'<span class="ep">EP {int(r.episode)}</span>'
+                     f'<span class="f">{r.fight}</span>'
+                     f'<span class="call">our read: <b>{r.predicted_winner}</b> '
+                     f'· result: <b>{r.actual_winner}</b></span>'
+                     f'<span class="pill {"hit" if ok else "miss"}">'
+                     f'{"&#10003; CONFIRMED" if ok else "&#10007; MISSED"}</span></div>')
+        return rows
+
     if pre is None or pre.empty:
-        st.markdown(f"""
-<div class="board"><div class="cell"><div class="lbl">Pre-registered fights scored</div>
-<div class="big">0</div><div class="sub">the card is frozen — scores land after air</div></div>
-<div class="cell"><div class="lbl">Hits</div><div class="big">—</div>
+        st.markdown("""
+<div class="board"><div class="cell"><div class="lbl">Reads graded</div>
+<div class="big">0</div><div class="sub">the briefs are frozen — grading lands after air</div></div>
+<div class="cell"><div class="lbl">Confirmed</div><div class="big">—</div>
 <div class="sub">nothing here is ever backfilled</div></div>
-<div class="cell"><div class="lbl">Coin flip to beat</div><div class="big">0.693</div>
-<div class="sub">log-loss of always saying 50/50</div></div></div>""", unsafe_allow_html=True)
+<div class="cell"><div class="lbl">The rule</div><div class="big">BEFORE AIR</div>
+<div class="sub">a brief written after the fight doesn't count</div></div></div>""",
+                    unsafe_allow_html=True)
     else:
-        ll = pre.log_loss.mean()
+        nxt = ""
+        if data["pred"] is not None and bool(data["pred"].preregistered.iloc[0]):
+            nxt = (f'<div class="cell"><div class="lbl">Next grading</div>'
+                   f'<div class="big">{data["pred"].date.iloc[0][5:].replace("-", "/")}</div>'
+                   f'<div class="sub">episode {int(data["pred"].episode.iloc[0])} — '
+                   f'briefs already frozen</div></div>')
         st.markdown(f"""
 <div class="board">
-<div class="cell"><div class="lbl">Hits — pre-registered only</div>
+<div class="cell"><div class="lbl">Reads confirmed — pre-air only</div>
   <div class="big">{int(pre.hit.sum())}/{len(pre)}</div>
-  <div class="sub">frozen in git before air, scored after</div></div>
-<div class="cell"><div class="lbl">Running log-loss</div>
-  <div class="big">{ll:.3f}</div><div class="sub">lower is better</div></div>
-<div class="cell"><div class="lbl">Coin flip</div>
-  <div class="big" style="color:{MUT};text-shadow:none">0.693</div>
-  <div class="sub">{"beating the coin by " + format(coin - ll, ".3f") if ll < coin
-                     else "behind the coin by " + format(ll - coin, ".3f")}</div></div>
-</div>""", unsafe_allow_html=True)
-        rows = ""
-        for r in pre.itertuples():
-            ok = int(r.hit) == 1
-            rows += (f'<div class="row"><span class="ep">EP {int(r.episode)}</span>'
-                     f'<span class="f">{r.fight}</span>'
-                     f'<span class="call">model leaned <b>{r.predicted_winner}</b> {r.p_predicted:.0%} '
-                     f'· won: <b>{r.actual_winner}</b></span>'
-                     f'<span class="pill {"hit" if ok else "miss"}">{"HIT" if ok else "MISS"}</span></div>')
-        st.markdown(rows, unsafe_allow_html=True)
-        st.markdown('<div class="proof">Every row was committed to git before the episode aired — '
-                    '<a href="https://github.com/Yazan-O/battlebots-pit-boss/commits/main/data/predictions">'
-                    'verify the timestamps</a>.</div>', unsafe_allow_html=True)
-        if len(pre) >= 3:
-            sc2 = pre.reset_index()
-            sc2["running"] = sc2.log_loss.expanding().mean()
-            fig = go.Figure()
-            fig.add_hline(y=coin, line=dict(color=MUT, dash="dash"),
-                          annotation_text="coin flip", annotation_font_color=MUT)
-            fig.add_trace(go.Scatter(x=sc2.index + 1, y=sc2.running, mode="lines+markers",
-                                     line=dict(color=GOLD, width=2), showlegend=False))
-            plotly_layout(fig, height=320,
-                          xaxis_title="pre-registered fights (chronological)",
-                          yaxis_title="running log-loss")
-            fig.update_xaxes(dtick=1)
-            st.plotly_chart(fig, width="stretch")
+  <div class="sub">frozen in git before air, graded after</div></div>
+<div class="cell"><div class="lbl">Episodes graded</div>
+  <div class="big">{pre.episode.nunique()}</div>
+  <div class="sub">misses stay on the board forever</div></div>
+{nxt}</div>""", unsafe_allow_html=True)
+        st.markdown(grade_rows(pre), unsafe_allow_html=True)
+        st.markdown('<div class="proof">Every brief was committed to git before the episode '
+                    'aired — <a href="https://github.com/Yazan-O/battlebots-pit-boss/commits/'
+                    'main/data/predictions">verify the timestamps</a>.</div>',
+                    unsafe_allow_html=True)
     retro = sc[~sc.preregistered] if sc is not None else None
     if retro is not None and not retro.empty:
-        with st.expander("Retrospective validation — episode 1 aired before Pit Boss went "
-                         "live; honest backfill, NOT part of the record"):
-            rows = ""
-            for r in retro.itertuples():
-                ok = int(r.hit) == 1
-                rows += (f'<div class="row" style="opacity:.75"><span class="ep">EP {int(r.episode)}</span>'
-                         f'<span class="f">{r.fight}</span>'
-                         f'<span class="call">model leaned <b>{r.predicted_winner}</b> {r.p_predicted:.0%} '
-                         f'· won: <b>{r.actual_winner}</b></span>'
-                         f'<span class="pill {"hit" if ok else "miss"}">{"HIT" if ok else "MISS"}</span></div>')
-            st.markdown(rows, unsafe_allow_html=True)
+        with st.expander("Test run on episode 1 — it aired before Pit Boss went live; "
+                         "honest backfill, NOT part of the record"):
+            st.markdown(grade_rows(retro, dim=True), unsafe_allow_html=True)
 
 with tab_board:
     s = data["strengths"].sort_values("elo")
