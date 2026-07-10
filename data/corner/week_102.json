@@ -1,0 +1,93 @@
+{
+  "episode": 102,
+  "date": "2026-07-09",
+  "fights": [
+    {
+      "bot_a": "Manta",
+      "bot_b": "Skorpios",
+      "group": "A",
+      "briefs": {
+        "Manta": {
+          "vs": "Skorpios",
+          "lines": [
+            "Manta has only 0 recorded fight(s) \u2014 no meaningful record; treat every claim about Manta here as unknown.",
+            "Skorpios's finishing threat: 6 of its 11 wins (55%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-vertical has beaten hammer-saw in 60% of 83 recorded meetings \u2014 the class is favored on paper.",
+            "Those spinner-vertical-vs-hammer-saw fights ended in KO 55% of the time \u2014 expect a finish, not the judges.",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Skorpios": {
+          "vs": "Manta",
+          "lines": [
+            "hammer-saw has beaten spinner-vertical in 40% of 83 recorded meetings \u2014 the class is the underdog on paper.",
+            "Those hammer-saw-vs-spinner-vertical fights ended in KO 55% of the time \u2014 expect a finish, not the judges.",
+            "Skorpios's own exposure: knocked out in 7 of its 11 losses (64%) \u2014 it can be finished.",
+            "Skorpios's 11 wins: 55% by KO.",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    },
+    {
+      "bot_a": "MadCatter",
+      "bot_b": "Tombstone",
+      "group": "B",
+      "briefs": {
+        "MadCatter": {
+          "vs": "Tombstone",
+          "lines": [
+            "Tombstone's finishing threat: 17 of its 21 wins (81%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-vertical has beaten spinner-horizontal in 61% of 142 recorded meetings \u2014 the class is favored on paper.",
+            "Those spinner-vertical-vs-spinner-horizontal fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "MadCatter's own exposure: knocked out in 4 of its 6 losses (67%) \u2014 it can be finished.",
+            "MadCatter's 8 wins: 62% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Tombstone": {
+          "vs": "MadCatter",
+          "lines": [
+            "MadCatter's finishing threat: 5 of its 8 wins (62%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-horizontal has beaten spinner-vertical in 39% of 142 recorded meetings \u2014 the class is the underdog on paper.",
+            "Those spinner-horizontal-vs-spinner-vertical fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Tombstone's own exposure: knocked out in 7 of its 9 losses (78%) \u2014 it can be finished.",
+            "Tombstone's 21 wins: 81% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    },
+    {
+      "bot_a": "JackPot",
+      "bot_b": "Copperhead",
+      "group": "C",
+      "briefs": {
+        "JackPot": {
+          "vs": "Copperhead",
+          "lines": [
+            "Copperhead's finishing threat: 7 of its 14 wins (50%) came by KO \u2014 it more often grinds out decisions.",
+            "Mirror matchup \u2014 both bots are spinner-vertical; class record offers no paper edge (120 past spinner-vertical-vs-spinner-vertical meetings, 64% ended in KO).",
+            "JackPot's own exposure: knocked out in 5 of its 5 losses (100%) \u2014 it can be finished.",
+            "JackPot's 6 wins: 67% by KO.",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Copperhead": {
+          "vs": "JackPot",
+          "lines": [
+            "JackPot's finishing threat: 4 of its 6 wins (67%) came by KO \u2014 few opponents survive to a decision.",
+            "Mirror matchup \u2014 both bots are spinner-vertical; class record offers no paper edge (120 past spinner-vertical-vs-spinner-vertical meetings, 64% ended in KO).",
+            "Copperhead's own exposure: knocked out in 6 of its 7 losses (86%) \u2014 it can be finished.",
+            "Copperhead's 14 wins: 50% by KO.",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    }
+  ]
+}

@@ -32,6 +32,10 @@ def main() -> None:
     except Exception as e:
         print(f"buzz FAILED (non-fatal): {e}")
     run("src.pitboss.predict")
+    try:
+        run("src.pitboss.corner")
+    except Exception as e:
+        print(f"corner briefs FAILED (non-fatal): {e}")
 
 
 if __name__ == "__main__":

@@ -143,6 +143,14 @@ with tab_week:
         st.subheader(f"Week {wk} fight card — episode {int(pred.episode.iloc[0])}, airs {pred.date.iloc[0]}")
         st.caption(f"model test specimens · {tag} · registered {pred.generated_at.iloc[0]} · {pred.model_version.iloc[0]}")
         wclass = dict(pd.read_csv("data/clean/weapon_classes.csv")[["bot", "weapon_class"]].values)
+        corner_briefs = {}
+        corner_path = Path(f"data/corner/week_{int(pred.episode.iloc[0])}.json")
+        if corner_path.exists():
+            import json as _json
+            cj = _json.loads(corner_path.read_text(encoding="utf-8"))
+            for f in cj.get("fights", []):
+                corner_briefs[frozenset((f["bot_a"], f["bot_b"]))] = {
+                    side: d["lines"] for side, d in f["briefs"].items()}
         for r in pred.itertuples():
             fav, p = (r.bot_a, r.p_a) if r.p_a >= 0.5 else (r.bot_b, 1 - r.p_a)
             ca, cb = wclass.get(r.bot_a, "other"), wclass.get(r.bot_b, "other")
@@ -160,6 +168,19 @@ with tab_week:
        <span style="color:{MUT};font-size:.8rem"> · uncertainty is the product, not a bug</span></div>
   <div class="why">TALE OF THE TAPE — {r.why}</div>
 </div>""", unsafe_allow_html=True)
+            brief = corner_briefs.get(frozenset((r.bot_a, r.bot_b)))
+            if brief:
+                with st.expander(f"CORNER BRIEF — what the public record says, both corners"):
+                    c_a, c_b = st.columns(2)
+                    for col, side in ((c_a, r.bot_a), (c_b, r.bot_b)):
+                        lines = brief.get(side, [])
+                        col.markdown(f"**{side}'s corner**")
+                        for ln in lines:
+                            col.markdown(f"<div style='color:{MUT};font-size:.84rem;"
+                                         f"margin-bottom:.3rem'>▪ {ln}</div>",
+                                         unsafe_allow_html=True)
+                    st.caption("Public-data view only — the teams know their bots. "
+                               "Every number is computable from data/clean/.")
 
         st.divider()
         st.subheader("SCOUT REPORT")
