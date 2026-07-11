@@ -156,9 +156,95 @@ details.pm summary {{ color:#D98782; }}
 .disclaimer {{ color:var(--muted); font-size:.76rem; margin-top:2.2rem;
   border-top:1px solid var(--border); padding-top:.8rem; }}
 
+/* roster cards — illustrated chassis flip cards, one per bot */
+.cc-grid {{ display:flex; flex-wrap:wrap; gap:1rem; margin:1.2rem 0 1.6rem; }}
+.cc-card {{ width:234px; }}
+.cc-toggle {{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; border:0;
+  overflow:hidden; white-space:nowrap; opacity:0; clip:rect(0,0,0,0); clip-path:inset(50%); }}
+.cc-scene {{ display:block; width:234px; height:428px; perspective:1200px; cursor:pointer;
+  -webkit-tap-highlight-color:transparent; }}
+.cc-scene--red {{ --accent:var(--red); }} .cc-scene--gold {{ --accent:var(--gold); }}
+.cc-scene--blue {{ --accent:var(--blue); }}
+.cc-toggle:focus-visible ~ .cc-scene {{ outline:2px solid var(--gold); outline-offset:3px; }}
+.cc-card-inner {{ position:relative; width:100%; height:100%; transition:transform .3s ease;
+  transform-style:preserve-3d; }}
+.cc-toggle:checked ~ .cc-scene .cc-card-inner {{ transform:rotateY(180deg); }}
+.cc-face {{ position:absolute; inset:0; display:flex; flex-direction:column;
+  background:radial-gradient(circle at 28% 15%, rgba(255,255,255,.035), transparent 55%), var(--surface);
+  border:1px solid var(--border); border-radius:2px; backface-visibility:hidden;
+  -webkit-backface-visibility:hidden; overflow:hidden; box-sizing:border-box; }}
+.cc-back {{ transform:rotateY(180deg); padding:14px 14px 10px; }}
+.cc-art {{ position:relative; background:linear-gradient(180deg,var(--surface2),var(--surface) 85%);
+  border-bottom:1px solid var(--border); }}
+.cc-silhouette {{ width:100%; height:172px; display:block; }}
+.cc-silhouette .tech {{ stroke:var(--border); stroke-width:1; fill:none; }}
+.cc-silhouette .tech .cc-tagtext {{ stroke:none; fill:var(--muted); font-family:var(--mono);
+  font-size:7px; letter-spacing:.04em; }}
+.cc-silhouette .hull {{ fill:none; stroke:var(--accent); stroke-width:2.2; stroke-linejoin:round;
+  stroke-linecap:round; }}
+.cc-silhouette .seam {{ stroke:var(--accent); stroke-width:1; opacity:.45; }}
+.cc-silhouette .rivet {{ fill:var(--accent); opacity:.7; }}
+.cc-silhouette .wheel {{ fill:none; stroke:var(--muted); stroke-width:1.3; }}
+.cc-silhouette .wheel .hub {{ fill:var(--muted); stroke:none; }}
+.cc-silhouette .accent .hinge {{ fill:var(--accent); stroke:none; }}
+.cc-silhouette .accent .arm {{ fill:none; stroke:var(--accent); stroke-width:2.4; stroke-linecap:round;
+  stroke-linejoin:round; }}
+.cc-silhouette .accent circle:not(.hinge):not(.rivet):not(.hub) {{ fill:none; stroke:var(--accent);
+  stroke-width:2; }}
+.cc-silhouette .accent .drum {{ fill:none; stroke:var(--accent); stroke-width:1.8; }}
+.cc-silhouette .teeth {{ stroke:var(--accent); stroke-width:1.3; opacity:.85; }}
+.cc-silhouette .hatch line, .cc-silhouette .hatch2 line {{ stroke:var(--accent); stroke-width:.9; opacity:.5; }}
+.cc-silhouette .flame {{ stroke:var(--gold); stroke-width:1.2; stroke-linecap:round; opacity:.8; fill:none; }}
+.cc-silhouette .wedge {{ fill:var(--accent); opacity:.85; }}
+.cc-silhouette .piston {{ fill:none; stroke:var(--accent); stroke-width:1.6; }}
+.cc-silhouette .piston-rod {{ stroke:var(--accent); stroke-width:1.2; }}
+.cc-silhouette .skirt-bar {{ fill:none; stroke:var(--accent); stroke-width:2; }}
+.cc-silhouette .skirt {{ fill:var(--surface); stroke:var(--accent); stroke-width:2; }}
+.cc-silhouette .dim {{ stroke:var(--muted); stroke-width:.8; }}
+.cc-silhouette .dim .cc-dimtext {{ stroke:none; fill:var(--muted); font-family:var(--mono);
+  font-size:7.5px; letter-spacing:.04em; }}
+.cc-class-tag {{ position:absolute; top:8px; right:10px; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.07em; color:var(--accent); }}
+.cc-front-mid {{ padding:12px 14px 6px; }}
+.cc-name {{ margin:0; font-family:var(--disp); font-weight:800; letter-spacing:.01em;
+  text-transform:uppercase; font-size:24px; line-height:1.05; color:var(--ink); }}
+.cc-name--sm {{ font-size:18px; }}
+.cc-team {{ margin:6px 0 0; font-size:12px; color:var(--muted); }}
+.cc-front-bottom {{ margin-top:auto; border-top:1px solid var(--border); padding:10px 14px 8px;
+  display:flex; align-items:flex-end; justify-content:space-between; gap:10px; }}
+.cc-label {{ display:block; font-family:var(--mono); font-size:9px; letter-spacing:.08em;
+  color:var(--muted); margin-bottom:5px; }}
+.cc-value {{ font-family:var(--mono); font-size:14px; color:var(--ink); }}
+.cc-pips {{ display:flex; gap:5px; }}
+.cc-pip {{ width:12px; height:12px; border-radius:1px; border:1px solid var(--border); background:var(--surface2); }}
+.cc-pip--win {{ background:var(--hit); border-color:var(--hit); }}
+.cc-pip--loss {{ background:var(--miss); border-color:var(--miss); }}
+.cc-pip--none {{ background:transparent; border-style:dashed; }}
+.cc-hint {{ display:block; text-align:center; font-family:var(--mono); font-size:9px; letter-spacing:.08em;
+  color:var(--muted); padding:0 0 8px; }}
+.cc-back .cc-hint {{ margin-top:auto; padding-top:8px; }}
+.cc-back-head {{ display:flex; align-items:center; justify-content:space-between; gap:8px;
+  border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:10px; }}
+.cc-badge {{ font-family:var(--mono); font-size:8px; letter-spacing:.05em; padding:3px 5px;
+  border:1px solid var(--border); white-space:nowrap; }}
+.cc-badge--confirmed {{ color:var(--gold); border-color:var(--gold); }}
+.cc-badge--new {{ color:var(--muted); }}
+.cc-stats {{ margin:0 0 8px; display:flex; flex-direction:column; gap:7px; }}
+.cc-stats > div {{ display:flex; flex-direction:column; gap:1px; }}
+.cc-stats dt {{ font-family:var(--mono); font-size:9px; letter-spacing:.08em; color:var(--muted); }}
+.cc-stats dd {{ margin:0; font-size:12px; line-height:1.3; color:var(--ink); }}
+.cc-ci {{ font-family:var(--mono); font-size:10px; color:var(--muted); }}
+.cc-log {{ width:100%; border-collapse:collapse; font-family:var(--mono); font-size:9.5px; }}
+.cc-log th {{ text-align:left; color:var(--muted); font-weight:400; letter-spacing:.04em;
+  border-bottom:1px solid var(--border); padding:3px; }}
+.cc-log td {{ padding:3px; border-bottom:1px solid var(--border); color:var(--ink); }}
+.cc-log .cc-w {{ color:var(--hit); }}
+.cc-log .cc-l {{ color:var(--miss); }}
+
 /* motion discipline */
 @media (prefers-reduced-motion: reduce) {{
   .plate, .prob .pa, .prob .pb, .glyph svg {{ animation:none; transition:none; opacity:1; transform:none; }}
+  .cc-card-inner {{ transition:none; }}
 }}
 /* small screens */
 @media (max-width:700px) {{
@@ -195,6 +281,8 @@ def load():
     d["wclass"] = dict(pd.read_csv("data/clean/weapon_classes.csv")[["bot", "weapon_class"]].values)
     d["weeks"] = pd.concat([pd.read_csv(w) for w in weeks]) if weeks else None
     d["season"] = pd.read_csv("data/clean/matches_2026.csv")
+    d["robots"] = pd.read_csv("data/clean/robots.csv")
+    d["hist"] = pd.read_parquet("data/clean/matches_hist.parquet")
     return d
 
 
@@ -221,6 +309,309 @@ def glyph(cls: str, color: str, size: int = 46) -> str:
     }.get(cls, f'<rect x="9" y="9" width="28" height="28" fill="none" stroke="{color}" stroke-width="2.4"/>')
     return (f'<span class="glyph{" spin" if spin else ""}"><svg width="{size}" height="{size}" '
             f'viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">{body}</svg></span>')
+
+
+# ---------------------------------------------------------------------------
+# ROSTER CARDS — original illustrated chassis per bot, no photos/3D likenesses.
+# Every drawing is authored from that bot's real weapon-spec text (data/clean/
+# robots.csv weapon_raw); hull silhouette is original illustration (not spec
+# data), weapon accent is grounded in real text via classify_accent() below —
+# an auditable keyword table, first match wins, never invented.
+# ---------------------------------------------------------------------------
+_ACCENT_KEYWORDS_VERTICAL = [
+    ("eggbeater", "articulating-drum", "articulating"),  # tuple: kw, type-if-2nd-kw, 2nd-kw
+    ("flamethrower", "disc-flame", None), ("flame", "disc-flame", None),
+    ("hydraulic", "disc-hydraulic-wedge", None), ("wedge", "disc-hydraulic-wedge", None),
+    ("axe", "disc-axe", None), ("lift", "disc-lifter", None),
+    ("2x", "twin-separate", None), ("twin", "twin-separate", None),
+    ("drum", "single-drum", None),
+]
+
+
+def classify_accent(weapon_class: str, weapon_raw: str) -> str:
+    """Deterministic, auditable: first literal keyword match in the real weapon_raw
+    text wins. Never invents a weapon feature not present in the source text."""
+    t = (weapon_raw or "").lower()
+    if weapon_class == "hammer-saw":
+        return "articulating-saw"
+    if weapon_class == "spinner-horizontal":
+        return "bar-tucked" if "undercutter" in t else "bar-exposed"
+    if "eggbeater" in t:
+        return "articulating-drum" if "articulating" in t else "eggbeater-drum"
+    for kw, atype, _ in _ACCENT_KEYWORDS_VERTICAL[1:]:
+        if kw in t:
+            return atype
+    return "generic-disc"
+
+
+def hull_family(bot: str, weapon_class: str) -> str:
+    """Stable per-bot hull pick (name hash, not random) — reproducible across runs."""
+    if weapon_class == "hammer-saw":
+        return "hex-tank"
+    if weapon_class == "spinner-horizontal":
+        return "wing"
+    import hashlib as _hashlib
+    hsh = int(_hashlib.md5(bot.encode()).hexdigest(), 16)
+    return "diamond" if hsh % 2 == 0 else "zigzag"
+
+
+_HULLS = {
+    "diamond": dict(
+        path="M20,86 L74,40 L118,50 L160,44 L212,86 L160,128 L118,122 L74,132 Z",
+        seams=[(74, 40, 74, 132), (118, 50, 118, 122), (160, 44, 160, 128)],
+        rivets=[(74, 46), (74, 126), (160, 50), (160, 122), (118, 56), (118, 116)],
+        wheels=[(48, 52), (48, 120), (186, 52), (186, 120)], wheel_r=7,
+        dim=(20, 212, 150, 163)),
+    "zigzag": dict(
+        path="M40,132 L40,88 L52,68 L64,80 L76,62 L88,78 L100,58 L112,78 L124,62 L136,80 L148,66 L156,88 L156,132 Z",
+        seams=[(64, 80, 64, 132), (100, 58, 100, 132), (136, 80, 136, 132)],
+        rivets=[(64, 86), (64, 126), (100, 64), (100, 126), (136, 86), (136, 126)],
+        wheels=[], tank_wheels=[(42, 126), (134, 126)],
+        dim=(40, 156, 150, 163)),
+    "wing": dict(
+        path="M24,98 L58,72 L120,68 L156,44 L192,72 L210,98 L192,124 L156,150 L120,130 L58,126 Z",
+        seams=[(58, 72, 58, 126), (120, 68, 120, 130), (156, 44, 156, 150)],
+        rivets=[(58, 80), (58, 118), (156, 54), (156, 140)],
+        wheels=[(40, 98), (196, 98)], wheel_r=6,
+        dim=(24, 210, 158, 167)),
+    "hex-tank": dict(
+        path="M40,100 L194,100 L206,112 L206,142 L194,154 L40,154 L28,142 L28,112 Z",
+        seams=[(60, 100, 60, 154), (120, 100, 120, 154), (170, 100, 170, 154)],
+        rivets=[(60, 106), (60, 148), (120, 106), (120, 148), (170, 106), (170, 148)],
+        wheels=[], tank_wheels=[(34, 144), (174, 144)],
+        dim=(28, 206, 160, 170)),
+}
+_ACCENT_CENTER = {"diamond": (150, 86), "zigzag": (167, 74), "wing": (117, 97), "hex-tank": (150, 40)}
+
+
+def _hull_svg(h: dict) -> str:
+    seams = " ".join(f"M{x1},{y1} L{x2},{y2}" for x1, y1, x2, y2 in h["seams"])
+    rivets = "".join(f'<circle class="rivet" cx="{x}" cy="{y}" r="1.6"/>' for x, y in h["rivets"])
+    wheels = "".join(
+        f'<circle cx="{x}" cy="{y}" r="{h.get("wheel_r",7)}"/><circle cx="{x}" cy="{y}" r="2" class="hub"/>'
+        for x, y in h.get("wheels", []))
+    tank = ""
+    for x, y in h.get("tank_wheels", []):
+        tank += (f'<rect x="{x}" y="{y}" width="26" height="10" rx="1"/>'
+                 f'<line x1="{x+4}" y1="{y}" x2="{x+10}" y2="{y+10}"/>'
+                 f'<line x1="{x+12}" y1="{y}" x2="{x+18}" y2="{y+10}"/>'
+                 f'<line x1="{x+20}" y1="{y}" x2="{x+26}" y2="{y+10}"/>')
+    return (f'<g class="hull"><path d="{h["path"]}"/><path d="{seams}" class="seam"/>{rivets}</g>'
+            f'<g class="wheel">{wheels}{tank}</g>')
+
+
+def _dim_svg(h: dict, label: str) -> str:
+    x1, x2, ly, ty = h["dim"]
+    return (f'<g class="dim"><line x1="{x1}" y1="{ly}" x2="{x2}" y2="{ly}"/>'
+            f'<line x1="{x1}" y1="{ly-4}" x2="{x1}" y2="{ly+4}"/>'
+            f'<line x1="{x2}" y1="{ly-4}" x2="{x2}" y2="{ly+4}"/>'
+            f'<text x="{(x1+x2)//2}" y="{ty}" text-anchor="middle" class="cc-dimtext">{label}</text></g>')
+
+
+def _accent_svg(accent_type: str, cx: int, cy: int) -> str:
+    """One drawing function per accent_type — grounded weapon shape, always
+    clear of the top-left corner tag and within the 172-height viewBox."""
+    if accent_type == "eggbeater-drum":
+        return (f'<g class="accent">'
+                f'<ellipse class="drum" cx="{cx}" cy="{cy}" rx="34" ry="12" transform="rotate(30 {cx} {cy})"/>'
+                f'<ellipse class="drum" cx="{cx}" cy="{cy}" rx="34" ry="12" transform="rotate(-30 {cx} {cy})"/>'
+                f'<circle cx="{cx}" cy="{cy}" r="6"/>'
+                f'<g class="hatch">'
+                f'<line x1="{cx-18}" y1="{cy-16}" x2="{cx-10}" y2="{cy-8}"/>'
+                f'<line x1="{cx-8}" y1="{cy-20}" x2="{cx+2}" y2="{cy-10}"/>'
+                f'<line x1="{cx+6}" y1="{cy-22}" x2="{cx+16}" y2="{cy-12}"/>'
+                f'<line x1="{cx-18}" y1="{cy+16}" x2="{cx-10}" y2="{cy+8}"/>'
+                f'<line x1="{cx-8}" y1="{cy+20}" x2="{cx+2}" y2="{cy+10}"/>'
+                f'<line x1="{cx+6}" y1="{cy+22}" x2="{cx+16}" y2="{cy+12}"/>'
+                f'</g></g>')
+    if accent_type == "single-drum":
+        return (f'<g class="accent"><ellipse class="drum" cx="{cx}" cy="{cy}" rx="30" ry="16"/>'
+                f'<circle cx="{cx}" cy="{cy}" r="5"/>'
+                f'<g class="hatch">'
+                f'<line x1="{cx-24}" y1="{cy}" x2="{cx-14}" y2="{cy}"/>'
+                f'<line x1="{cx-6}" y1="{cy}" x2="{cx+2}" y2="{cy}"/>'
+                f'<line x1="{cx+10}" y1="{cy}" x2="{cx+20}" y2="{cy}"/>'
+                f'</g></g>')
+    if accent_type == "disc-lifter":
+        return (f'<g class="accent"><circle cx="{cx}" cy="{cy}" r="30"/>'
+                f'<g class="teeth">'
+                f'<line x1="{cx}" y1="{cy-30}" x2="{cx}" y2="{cy+30}"/>'
+                f'<line x1="{cx-30}" y1="{cy}" x2="{cx+30}" y2="{cy}"/>'
+                f'<line x1="{cx-21}" y1="{cy-21}" x2="{cx+21}" y2="{cy+21}"/>'
+                f'<line x1="{cx-21}" y1="{cy+21}" x2="{cx+21}" y2="{cy-21}"/>'
+                f'<line x1="{cx-15}" y1="{cy-28}" x2="{cx-22}" y2="{cy-36}"/>'
+                f'<line x1="{cx+15}" y1="{cy-28}" x2="{cx+22}" y2="{cy-36}"/></g>'
+                f'<circle cx="{cx}" cy="{cy}" r="5" class="hinge"/>'
+                f'<path d="M{cx-34},{cy+32} L{cx+24},{cy+44} L{cx+24},{cy+52} L{cx-34},{cy+40} Z" class="wedge"/>'
+                f'<circle class="rivet" cx="{cx-32}" cy="{cy+34}" r="1.6"/></g>')
+    if accent_type == "disc-axe":
+        return (f'<g class="accent"><circle cx="{cx}" cy="{cy}" r="26"/>'
+                f'<g class="teeth">'
+                f'<line x1="{cx}" y1="{cy-26}" x2="{cx}" y2="{cy+26}"/>'
+                f'<line x1="{cx-26}" y1="{cy}" x2="{cx+26}" y2="{cy}"/>'
+                f'<line x1="{cx-18}" y1="{cy-18}" x2="{cx+18}" y2="{cy+18}"/>'
+                f'<line x1="{cx-18}" y1="{cy+18}" x2="{cx+18}" y2="{cy-18}"/></g>'
+                f'<path d="M{cx+22},{cy-10} Q{cx+44},{cy-14} {cx+40},{cy+6} Q{cx+36},{cy+16} {cx+20},{cy+8} Z" class="wedge"/>'
+                f'</g>')
+    if accent_type == "disc-hydraulic-wedge":
+        return (f'<g class="accent"><circle cx="{cx}" cy="{cy}" r="26"/>'
+                f'<g class="teeth">'
+                f'<line x1="{cx}" y1="{cy-26}" x2="{cx}" y2="{cy+26}"/>'
+                f'<line x1="{cx-26}" y1="{cy}" x2="{cx+26}" y2="{cy}"/>'
+                f'<line x1="{cx-18}" y1="{cy-18}" x2="{cx+18}" y2="{cy+18}"/>'
+                f'<line x1="{cx-18}" y1="{cy+18}" x2="{cx+18}" y2="{cy-18}"/></g>'
+                f'<path d="M{cx-30},{cy+28} L{cx+18},{cy+38} L{cx+18},{cy+46} L{cx-30},{cy+36} Z" class="wedge"/>'
+                f'<rect x="{cx-40}" y="{cy+22}" width="6" height="14" class="piston"/>'
+                f'<line x1="{cx-37}" y1="{cy+22}" x2="{cx-37}" y2="{cy+10}" class="piston-rod"/></g>')
+    if accent_type == "twin-separate":
+        return (f'<g class="accent">'
+                f'<circle cx="{cx-24}" cy="{cy-14}" r="16"/>'
+                f'<g class="teeth"><line x1="{cx-24}" y1="{cy-30}" x2="{cx-24}" y2="{cy+2}"/>'
+                f'<line x1="{cx-40}" y1="{cy-14}" x2="{cx-8}" y2="{cy-14}"/></g>'
+                f'<circle cx="{cx-24}" cy="{cy-14}" r="3" class="hinge"/>'
+                f'<circle cx="{cx+22}" cy="{cy+16}" r="16"/>'
+                f'<g class="teeth"><line x1="{cx+22}" y1="{cy}" x2="{cx+22}" y2="{cy+32}"/>'
+                f'<line x1="{cx+6}" y1="{cy+16}" x2="{cx+38}" y2="{cy+16}"/></g>'
+                f'<circle cx="{cx+22}" cy="{cy+16}" r="3" class="hinge"/></g>')
+    if accent_type == "disc-flame":
+        return (f'<g class="accent"><circle cx="{cx}" cy="{cy}" r="28"/>'
+                f'<g class="teeth">'
+                f'<line x1="{cx}" y1="{cy-28}" x2="{cx}" y2="{cy+28}"/>'
+                f'<line x1="{cx-28}" y1="{cy}" x2="{cx+28}" y2="{cy}"/>'
+                f'<line x1="{cx-20}" y1="{cy-20}" x2="{cx+20}" y2="{cy+20}"/>'
+                f'<line x1="{cx-20}" y1="{cy+20}" x2="{cx+20}" y2="{cy-20}"/></g>'
+                f'<path d="M{cx+26},{cy-22} L{cx+34},{cy-32} M{cx+32},{cy-16} L{cx+42},{cy-24} '
+                f'M{cx+36},{cy-6} L{cx+46},{cy-12}" class="flame"/></g>')
+    if accent_type == "articulating-drum":
+        ax, ay = cx - 46, cy + 34
+        return (f'<g class="accent"><path d="M{ax},{ay} L{ax+18}, {ay-30} L{ax+40},{ay-50}" class="arm"/>'
+                f'<circle cx="{ax+18}" cy="{ay-30}" r="5" class="hinge"/>'
+                f'<ellipse class="drum" cx="{ax+40}" cy="{ay-50}" rx="22" ry="8" transform="rotate(25 {ax+40} {ay-50})"/>'
+                f'<ellipse class="drum" cx="{ax+40}" cy="{ay-50}" rx="22" ry="8" transform="rotate(-25 {ax+40} {ay-50})"/>'
+                f'<circle cx="{ax+40}" cy="{ay-50}" r="4"/></g>')
+    if accent_type == "articulating-saw":
+        return (f'<g class="accent"><path d="M{cx-63},{cy+60} L{cx-45},{cy+30} L{cx-17},{cy+10}" class="arm"/>'
+                f'<circle cx="{cx-45}" cy="{cy+30}" r="5" class="hinge"/><circle cx="{cx-17}" cy="{cy+10}" r="5" class="hinge"/>'
+                f'<circle cx="{cx}" cy="{cy}" r="15"/>'
+                f'<g class="teeth"><line x1="{cx}" y1="{cy-15}" x2="{cx}" y2="{cy+15}"/>'
+                f'<line x1="{cx-15}" y1="{cy}" x2="{cx+15}" y2="{cy}"/>'
+                f'<line x1="{cx-11}" y1="{cy-11}" x2="{cx+11}" y2="{cy+11}"/>'
+                f'<line x1="{cx-11}" y1="{cy+11}" x2="{cx+11}" y2="{cy-11}"/>'
+                f'<line x1="{cx-7}" y1="{cy-14}" x2="{cx-13}" y2="{cy-20}"/>'
+                f'<line x1="{cx+7}" y1="{cy-14}" x2="{cx+13}" y2="{cy-20}"/></g>'
+                f'<path d="M{cx+16},{cy+12} L{cx+10},{cy+2} M{cx+22},{cy+8} L{cx+18},{cy-4} '
+                f'M{cx+28},{cy+4} L{cx+26},{cy-8}" class="flame"/></g>')
+    if accent_type == "bar-tucked":
+        ticks = "".join(f'<line x1="{cx-39+i*12}" y1="{cy+8}" x2="{cx-39+i*12}" y2="{cy+17}"/>' for i in range(8))
+        skirt_ticks = "".join(f'<line x1="{cx-37+i*17}" y1="{cy+20}" x2="{cx-37+i*17}" y2="{cy+32}"/>' for i in range(6))
+        return (f'<g class="accent"><rect x="{cx-45}" y="{cy+8}" width="90" height="9" rx="4" class="skirt-bar"/>'
+                f'<g class="hatch2">{ticks}</g>'
+                f'<path d="M{cx-51},{cy+20} L{cx+51},{cy+20} L{cx+51},{cy+32} L{cx-51},{cy+32} Z" class="skirt"/>'
+                f'{skirt_ticks}</g>')
+    if accent_type == "bar-exposed":
+        ticks = "".join(f'<line x1="{cx-47+i*11}" y1="{cy}" x2="{cx-47+i*11}" y2="{cy+11}"/>' for i in range(10))
+        return (f'<g class="accent"><rect x="{cx-55}" y="{cy}" width="110" height="11" rx="5" class="skirt-bar"/>'
+                f'<g class="hatch2">{ticks}</g>'
+                f'<circle cx="{cx-55}" cy="{cy+5}" r="4" class="hinge"/>'
+                f'<circle cx="{cx+55}" cy="{cy+5}" r="4" class="hinge"/></g>')
+    # generic-disc
+    return (f'<g class="accent"><circle cx="{cx}" cy="{cy}" r="30"/>'
+            f'<g class="teeth">'
+            f'<line x1="{cx}" y1="{cy-30}" x2="{cx}" y2="{cy+30}"/>'
+            f'<line x1="{cx-30}" y1="{cy}" x2="{cx+30}" y2="{cy}"/>'
+            f'<line x1="{cx-21}" y1="{cy-21}" x2="{cx+21}" y2="{cy+21}"/>'
+            f'<line x1="{cx-21}" y1="{cy+21}" x2="{cx+21}" y2="{cy-21}"/></g>'
+            f'<circle cx="{cx}" cy="{cy}" r="5" class="hinge"/></g>')
+
+
+def chassis_svg(bot: str, weapon_class: str, weapon_raw: str, idx: int) -> str:
+    accent_type = classify_accent(weapon_class, weapon_raw)
+    hf = hull_family(bot, weapon_class)
+    h = _HULLS[hf]
+    cx, cy = _ACCENT_CENTER[hf]
+    tag = f"BB&#8209;{idx:02d}"
+    label = f'{weapon_class.upper()} &middot; {accent_type.upper().replace("-", " ")}'
+    return (f'<svg viewBox="0 0 234 172" class="cc-silhouette" xmlns="http://www.w3.org/2000/svg" '
+            f'role="img" aria-label="{bot}: original illustration authored from its public weapon '
+            f'spec, not a photograph or 3D scan">'
+            f'<g class="tech"><path d="M8,10 L8,20 M8,10 L18,10"/><path d="M226,10 L226,20 M226,10 L216,10"/>'
+            f'<path d="M8,148 L8,138 M8,148 L18,148"/><path d="M226,148 L226,138 M226,148 L216,148"/>'
+            f'<text x="12" y="24" class="cc-tagtext">{tag}</text></g>'
+            f'{_hull_svg(h)}{_accent_svg(accent_type, cx, cy)}{_dim_svg(h, label)}</svg>')
+
+
+def recent_fights(bot: str, hist: pd.DataFrame, season: pd.DataFrame, n: int = 4) -> list[dict]:
+    """Real fight history for one bot, chronological, most recent last N."""
+    rows = []
+    for df in (hist, season):
+        sub = df[(df.bot_a == bot) | (df.bot_b == bot)]
+        for r in sub.itertuples():
+            if not isinstance(r.date, str) or not r.date:
+                continue  # a handful of historical rows have no recorded date — skip, don't fabricate
+            opp = r.bot_b if r.bot_a == bot else r.bot_a
+            method = r.method if isinstance(r.method, str) and r.method else "—"
+            rows.append({"date": r.date, "opp": opp,
+                        "result": "W" if r.winner == bot else "L", "method": method})
+    rows.sort(key=lambda x: x["date"])
+    return rows[-n:]
+
+
+def _clean_field(s, prefix: str) -> str:
+    if not isinstance(s, str) or not s:
+        return "—"
+    s = s.replace(prefix, "").strip()
+    return s.split("(")[0].split("[")[0].strip() or "—"
+
+
+def bot_card(r, idx: int, hist: pd.DataFrame, season: pd.DataFrame) -> str:
+    """Flip card: front = illustrated chassis + weight/form, back = full stat sheet."""
+    color_cls = {"hammer-saw": "gold", "spinner-horizontal": "blue"}.get(r.weapon_class, "red")
+    svg = chassis_svg(r.bot, r.weapon_class, r.weapon_raw or "", idx)
+    fights = recent_fights(r.bot, hist, season, n=4)
+    padded = fights + [None] * (4 - len(fights))
+    pips = "".join(
+        f'<span class="cc-pip cc-pip--none" title="No prior record"></span>' if f is None else
+        f'<span class="cc-pip cc-pip--{"win" if f["result"]=="W" else "loss"}" '
+        f'title="{f["date"]} vs {f["opp"]} — {f["result"]} ({f["method"]})"></span>'
+        for f in padded)
+    badge = ('<span class="cc-badge cc-badge--new">LOW DATA</span>' if r.ci_kind == "prior-band"
+             else '<span class="cc-badge cc-badge--confirmed">CONFIRMED RECORD</span>')
+    log_rows = "".join(
+        f'<tr><td>{f["date"]}</td><td>{f["opp"]}</td>'
+        f'<td class="cc-{"w" if f["result"]=="W" else "l"}">{f["result"]}</td><td>{f["method"]}</td></tr>'
+        for f in fights) or '<tr><td colspan="4" style="color:var(--muted)">No recorded fights</td></tr>'
+    weight = _clean_field(r.weight, "> Weight ")
+    weapon_disp = _clean_field(r.weapon_raw, "> Weapons ")
+    team_disp = _clean_field(r.team, "> Team ")
+    return f"""
+<div class="cc-card">
+  <input type="checkbox" id="cc-flip-{idx}" class="cc-toggle" aria-label="Flip {r.bot} card to show full stats">
+  <label for="cc-flip-{idx}" class="cc-scene cc-scene--{color_cls}">
+    <div class="cc-card-inner">
+      <div class="cc-face cc-front">
+        <div class="cc-art">{svg}<span class="cc-class-tag">{r.weapon_class.upper()}</span></div>
+        <div class="cc-front-mid"><h3 class="cc-name">{r.bot.upper()}</h3>
+          <p class="cc-team">{team_disp}</p></div>
+        <div class="cc-front-bottom">
+          <div class="cc-weight"><span class="cc-label">WEIGHT</span><span class="cc-value">{weight}</span></div>
+          <div class="cc-form"><span class="cc-label">FORM</span><div class="cc-pips">{pips}</div></div>
+        </div>
+        <span class="cc-hint">TAP FOR STATS &#8635;</span>
+      </div>
+      <div class="cc-face cc-back">
+        <div class="cc-back-head"><h3 class="cc-name cc-name--sm">{r.bot.upper()}</h3>{badge}</div>
+        <dl class="cc-stats">
+          <div><dt>ELO</dt><dd>{r.elo:.0f} <span class="cc-ci">(90% CI {r.ci_lo:.0f}&ndash;{r.ci_hi:.0f})</span></dd></div>
+          <div><dt>WEAPON</dt><dd>{weapon_disp}</dd></div>
+          <div><dt>RECORD</dt><dd>{r.career_w}&ndash;{r.career_l} <span class="cc-ci">career</span></dd></div>
+        </dl>
+        <table class="cc-log"><thead><tr><th>DATE</th><th>OPP</th><th>RES</th><th>MTHD</th></tr></thead>
+          <tbody>{log_rows}</tbody></table>
+        <span class="cc-hint">TAP FOR FRONT &#8635;</span>
+      </div>
+    </div>
+  </label>
+</div>"""
 
 
 def plotly_layout(fig: go.Figure, **kw) -> go.Figure:
@@ -464,6 +855,19 @@ with tab_record:
             st.markdown(grade_rows(retro, dim=True), unsafe_allow_html=True)
 
 with tab_board:
+    st.subheader("THE ROSTER")
+    st.markdown('<div class="note" style="margin:-.4rem 0 1rem">Click a card for the full stat '
+                'sheet. Every drawing is authored from that bot&#8217;s real public weapon spec '
+                '(data/clean/robots.csv) — no bot photo or 3D likeness anywhere, by design.</div>',
+                unsafe_allow_html=True)
+    roster = (data["strengths"]
+              .merge(data["robots"][["bot", "weapon_raw", "team", "weight"]], on="bot", how="left")
+              .sort_values("bot"))
+    cards = "".join(bot_card(r, i, data["hist"], data["season"])
+                    for i, r in enumerate(roster.itertuples(), 1))
+    st.markdown(f'<div class="cc-grid">{cards}</div>', unsafe_allow_html=True)
+
+    st.divider()
     s = data["strengths"].sort_values("elo")
     fig = go.Figure()
     fig.add_trace(go.Scatter(
