@@ -86,8 +86,12 @@ h1,h2,h3 {{ font-family:var(--disp); text-transform:uppercase; letter-spacing:.0
   text-transform:uppercase; }}
 .corner .cl {{ color:var(--muted); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
   margin-top:.25rem; font-family:var(--mono); }}
+.mid {{ text-align:center; }}
 .vs {{ font-family:var(--disp); font-weight:800; font-size:1.7rem; color:var(--ink);
-  border-bottom:2px solid var(--gold); padding:0 .5rem .1rem; }}
+  border-bottom:2px solid var(--gold); padding:0 .5rem .1rem; display:inline-block; }}
+.leanto {{ font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; margin-top:.45rem;
+  color:var(--muted); }}
+.leanto.r {{ color:var(--red); }} .leanto.b {{ color:var(--blue); }}
 .glyph svg {{ display:block; transition:transform .6s cubic-bezier(.16,1,.3,1); }}
 .plate:hover .glyph.spin svg {{ transform:rotate(180deg); }}
 .briefs {{ display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--border); }}
@@ -130,6 +134,17 @@ details.tape-d div {{ color:var(--muted); font-size:.8rem; padding:0 2.4rem .9re
 .pill.miss {{ background:rgba(176,82,77,.14); color:#D98782; border:1px solid rgba(176,82,77,.45); }}
 .proof {{ color:var(--muted); font-family:var(--mono); font-size:.72rem; margin-top:.7rem; }}
 .proof a {{ color:var(--gold); }}
+details.pm {{ background:var(--surface); border:1px solid var(--border); border-top:none; }}
+details.pm summary::before {{ color:var(--miss); }}
+details.pm summary {{ color:#D98782; }}
+.pmlist {{ margin:0; padding:0; }}
+.pmlist li {{ list-style:none; color:#B9C0C9; font-size:.82rem; line-height:1.55;
+  padding-left:.95rem; position:relative; margin-bottom:.5rem; }}
+.pmlist li::before {{ content:""; position:absolute; left:0; top:.55em; width:7px; height:2px;
+  background:var(--miss); }}
+.pmlist li.receipt {{ color:var(--muted); font-family:var(--mono); font-size:.72rem;
+  line-height:1.5; margin-top:.7rem; padding-top:.7rem; border-top:1px solid var(--border); }}
+.pmlist li.receipt::before {{ display:none; }}
 
 /* callout tiles (hype) */
 .tile {{ background:var(--surface); border:1px solid var(--border); padding:.9rem 1.2rem; }}
@@ -152,7 +167,7 @@ details.tape-d div {{ color:var(--muted); font-size:.8rem; padding:0 2.4rem .9re
   .chip .val {{ font-size:1rem; }}
   .tape {{ grid-template-columns:1fr; gap:.6rem; padding:1.2rem 1.2rem .8rem; }}
   .corner.b {{ flex-direction:row; text-align:left; }}
-  .vs {{ display:none; }}
+  .mid {{ order:3; }}
   .corner .nm {{ font-size:1.9rem; }}
   .briefs {{ grid-template-columns:1fr; }}
   .brief, .probwrap {{ padding-left:1.2rem; padding-right:1.2rem; }}
@@ -178,6 +193,8 @@ def load():
     d["strengths"] = pd.read_csv("data/predictions/strengths.csv")
     d["buzz"] = pd.read_csv("data/clean/buzz.csv")
     d["wclass"] = dict(pd.read_csv("data/clean/weapon_classes.csv")[["bot", "weapon_class"]].values)
+    d["weeks"] = pd.concat([pd.read_csv(w) for w in weeks]) if weeks else None
+    d["season"] = pd.read_csv("data/clean/matches_2026.csv")
     return d
 
 
@@ -277,6 +294,12 @@ with tab_week:
 
         for i, r in enumerate(pred.itertuples()):
             ca, cb = data["wclass"].get(r.bot_a, "other"), data["wclass"].get(r.bot_b, "other")
+            if r.p_a > 0.5:
+                lean = f'<div class="leanto r">&#9666; LEANING {r.bot_a.upper()}</div>'
+            elif r.p_a < 0.5:
+                lean = f'<div class="leanto b">LEANING {r.bot_b.upper()} &#9656;</div>'
+            else:
+                lean = '<div class="leanto">DEAD EVEN</div>'
             brief = corner_briefs.get(frozenset((r.bot_a, r.bot_b)), {})
             bl_a = "".join(f"<li>{ln}</li>" for ln in leads(brief.get(r.bot_a, [])))
             bl_b = "".join(f"<li>{ln}</li>" for ln in leads(brief.get(r.bot_b, [])))
@@ -296,7 +319,7 @@ with tab_week:
   <div class="tape">
     <div class="corner r">{glyph(ca, RED)}<div><div class="tag">RED CORNER</div>
       <div class="nm">{r.bot_a}</div><div class="cl">{ca.replace('-', ' ')}</div></div></div>
-    <div class="vs">VS</div>
+    <div class="mid"><div class="vs">VS</div>{lean}</div>
     <div class="corner b">{glyph(cb, BLUE)}<div><div class="tag">BLUE CORNER</div>
       <div class="nm">{r.bot_b}</div><div class="cl">{cb.replace('-', ' ')}</div></div></div>
   </div>
@@ -347,6 +370,45 @@ with tab_week:
 
 with tab_record:
     # the accountable record: our pre-air reads, graded in public — nothing else counts
+    import re as _re
+
+    def post_mortem(r) -> str:
+        """Data-grounded miss analysis: what happened, why the data-driven read broke,
+        and the verbatim git receipt of what was frozen — no hindsight rewriting."""
+        wk = data["weeks"]
+        frozen = ""
+        if wk is not None:
+            m = wk[(wk.episode == r.episode) & (wk.fight == r.fight)]
+            if not m.empty:
+                frozen = m.iloc[0].why
+        season = data["season"]
+        res = season[(season.episode == r.episode) &
+                     (season.winner == r.actual_winner)]
+        method = ""
+        if not res.empty and isinstance(res.iloc[0].method, str) and res.iloc[0].method:
+            method = " by " + {"KO": "knockout", "JD": "judges' decision"}.get(
+                res.iloc[0].method, res.iloc[0].method)
+        loser = r.fight.replace(r.actual_winner, "").replace(" vs ", "").strip()
+        lines = [f"<b>What happened:</b> {r.actual_winner} beat {loser}{method} — the corner "
+                 f"we leaned away from took it."]
+        if r.p_predicted < 0.60:
+            lines.append("<b>Why it broke:</b> a thin lean, not a conviction — the public "
+                         "record called this one close to even, and close fights break both ways.")
+        lowdata = _re.search(r"(\w[\w' .-]*) has only \d+ recorded fight", frozen or "")
+        if lowdata:
+            lines.append(f"<b>The data gap:</b> {lowdata.group(1).strip()}'s public record "
+                         "was nearly empty, so the read leaned on weapon-class history instead "
+                         "of the bot itself — the first kind of read to break.")
+        if r.p_predicted >= 0.60 and not lowdata:
+            lines.append(f"<b>Why it broke:</b> the public record clearly favored "
+                         f"{r.predicted_winner}; {r.actual_winner} beat the paper. The result "
+                         "feeds straight back into the ratings — a miss the board learns from.")
+        html = "".join(f"<li>{ln}</li>" for ln in lines)
+        if frozen:
+            html += (f'<li class="receipt">The exact line committed to git before air: '
+                     f'&ldquo;{frozen}&rdquo;</li>')
+        return html
+
     def grade_rows(df, dim: bool = False) -> str:
         rows = ""
         style = ' style="opacity:.75"' if dim else ""
@@ -359,6 +421,10 @@ with tab_record:
                      f'· result: <b>{r.actual_winner}</b></span>'
                      f'<span class="pill {"hit" if ok else "miss"}">'
                      f'{"&#10003; CONFIRMED" if ok else "&#10007; MISSED"}</span></div>')
+            if not ok:
+                rows += (f'<details class="tape-d pm"{style}><summary>WHY WE MISSED IT'
+                         f'</summary><div><ul class="pmlist">{post_mortem(r)}</ul></div>'
+                         f'</details>')
         return rows
 
     if pre is None or pre.empty:
