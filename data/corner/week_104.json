@@ -1,0 +1,91 @@
+{
+  "episode": 104,
+  "date": "2026-07-23",
+  "fights": [
+    {
+      "bot_a": "Cobalt",
+      "bot_b": "The Twins",
+      "group": "C",
+      "briefs": {
+        "Cobalt": {
+          "vs": "The Twins",
+          "lines": [
+            "spinner-horizontal has beaten spinner-vertical in 39% of 142 recorded meetings \u2014 the class is the underdog on paper.",
+            "Those spinner-horizontal-vs-spinner-vertical fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Cobalt's own exposure: knocked out in 7 of its 8 losses (88%) \u2014 it can be finished.",
+            "Cobalt's 10 wins: 90% by KO.",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "The Twins": {
+          "vs": "Cobalt",
+          "lines": [
+            "The Twins has only 0 recorded fight(s) \u2014 no meaningful record; treat every claim about The Twins here as unknown.",
+            "Cobalt's finishing threat: 9 of its 10 wins (90%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-vertical has beaten spinner-horizontal in 61% of 142 recorded meetings \u2014 the class is favored on paper.",
+            "Those spinner-vertical-vs-spinner-horizontal fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    },
+    {
+      "bot_a": "Bloodsport",
+      "bot_b": "Minotaur",
+      "group": "E",
+      "briefs": {
+        "Bloodsport": {
+          "vs": "Minotaur",
+          "lines": [
+            "Minotaur's finishing threat: 18 of its 25 wins (72%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-horizontal has beaten spinner-vertical in 39% of 142 recorded meetings \u2014 the class is the underdog on paper.",
+            "Those spinner-horizontal-vs-spinner-vertical fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Bloodsport's own exposure: knocked out in 4 of its 7 losses (57%) \u2014 it can be finished.",
+            "Bloodsport's 10 wins: 60% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Minotaur": {
+          "vs": "Bloodsport",
+          "lines": [
+            "Bloodsport's finishing threat: 6 of its 10 wins (60%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-vertical has beaten spinner-horizontal in 61% of 142 recorded meetings \u2014 the class is favored on paper.",
+            "Those spinner-vertical-vs-spinner-horizontal fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Minotaur's own exposure: knocked out in 5 of its 10 losses (50%) \u2014 it can be finished.",
+            "Minotaur's 25 wins: 72% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    },
+    {
+      "bot_a": "Orbitron",
+      "bot_b": "Witch Doctor",
+      "group": "F",
+      "briefs": {
+        "Orbitron": {
+          "vs": "Witch Doctor",
+          "lines": [
+            "Orbitron has only 0 recorded fight(s) \u2014 no meaningful record; treat every claim about Orbitron here as unknown.",
+            "Witch Doctor's finishing threat: 17 of its 25 wins (68%) came by KO \u2014 few opponents survive to a decision.",
+            "Mirror matchup \u2014 both bots are spinner-vertical; class record offers no paper edge (120 past spinner-vertical-vs-spinner-vertical meetings, 64% ended in KO).",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Witch Doctor": {
+          "vs": "Orbitron",
+          "lines": [
+            "Mirror matchup \u2014 both bots are spinner-vertical; class record offers no paper edge (120 past spinner-vertical-vs-spinner-vertical meetings, 64% ended in KO).",
+            "Witch Doctor's own exposure: knocked out in 9 of its 13 losses (69%) \u2014 it can be finished.",
+            "Witch Doctor's 25 wins: 68% by KO.",
+            "No Pro League 2026 fights on record yet."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    }
+  ]
+}

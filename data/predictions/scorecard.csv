@@ -5,3 +5,6 @@ week,episode,fight,predicted_winner,p_predicted,actual_winner,hit,log_loss,prere
 2,102,JackPot vs Copperhead,Copperhead,0.7463,Copperhead,1,0.2926,True,elo-k80-v1
 2,102,MadCatter vs Tombstone,MadCatter,0.5198,MadCatter,1,0.6543,True,elo-k80-v1
 2,102,Manta vs Skorpios,Skorpios,0.5257,Manta,0,0.7459,True,elo-k80-v1
+3,103,Disarray vs Magnitude,Disarray,0.5,Magnitude,0,0.6931,True,elo-k80-v2
+3,103,Switchback vs Ribbot,Ribbot,0.7527,Switchback,0,1.3972,True,elo-k80-v2
+3,103,Terrortops vs Valkyrie,Terrortops,0.6102,Terrortops,1,0.494,True,elo-k80-v2

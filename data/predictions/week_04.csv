@@ -1,0 +1,4 @@
+week,episode,date,fight,bot_a,bot_b,p_a,model_version,generated_at,preregistered,why
+4,104,2026-07-23,Cobalt vs The Twins,Cobalt,The Twins,0.6471,elo-k80-v2,2026-07-17T12:27:26+00:00,True,"Cobalt carries a 105-point Elo edge (1605 vs 1500); career 10-8 vs 0-0; spinner horizontal vs spinner vertical; The Twins has only 0 recorded fights - low data, wide uncertainty"
+4,104,2026-07-23,Bloodsport vs Minotaur,Bloodsport,Minotaur,0.1773,elo-k80-v2,2026-07-17T12:27:26+00:00,True,Minotaur carries a 267-point Elo edge (1819 vs 1553); career 10-7 vs 25-10; spinner horizontal vs spinner vertical
+4,104,2026-07-23,Orbitron vs Witch Doctor,Orbitron,Witch Doctor,0.1841,elo-k80-v2,2026-07-17T12:27:26+00:00,True,"Witch Doctor carries a 259-point Elo edge (1759 vs 1500); career 0-0 vs 25-13; Orbitron has only 0 recorded fights - low data, wide uncertainty"
