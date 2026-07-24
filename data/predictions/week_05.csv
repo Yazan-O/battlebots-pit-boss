@@ -1,0 +1,4 @@
+week,episode,date,fight,bot_a,bot_b,p_a,model_version,generated_at,preregistered,why
+5,105,2026-07-30,Disarray vs Tombstone,Disarray,Tombstone,0.4054,elo-k80-v2,2026-07-24T12:33:21+00:00,True,"Tombstone carries a 67-point Elo edge (1527 vs 1460); career 0-1 vs 21-10; spinner vertical vs spinner horizontal; Disarray has only 1 recorded fights - low data, wide uncertainty"
+5,105,2026-07-30,Cobalt vs Copperhead,Cobalt,Copperhead,0.243,elo-k80-v2,2026-07-24T12:33:21+00:00,True,Copperhead carries a 197-point Elo edge (1751 vs 1554); career 10-9 vs 15-7; spinner horizontal vs spinner vertical
+5,105,2026-07-30,Bloodsport vs HyperShock,Bloodsport,HyperShock,0.4656,elo-k80-v2,2026-07-24T12:33:21+00:00,True,HyperShock carries a 24-point Elo edge (1562 vs 1538); career 10-8 vs 13-16; spinner horizontal vs spinner vertical

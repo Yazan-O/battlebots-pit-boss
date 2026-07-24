@@ -1,0 +1,93 @@
+{
+  "episode": 105,
+  "date": "2026-07-30",
+  "fights": [
+    {
+      "bot_a": "Disarray",
+      "bot_b": "Tombstone",
+      "group": "B",
+      "briefs": {
+        "Disarray": {
+          "vs": "Tombstone",
+          "lines": [
+            "Disarray has only 0 recorded fight(s) \u2014 no meaningful record; treat every claim about Disarray here as unknown.",
+            "Tombstone's finishing threat: 17 of its 21 wins (81%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-vertical has beaten spinner-horizontal in 61% of 142 recorded meetings \u2014 the class is favored on paper.",
+            "Those spinner-vertical-vs-spinner-horizontal fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "2026 Pro League so far: 0-1 in 1 fight(s)."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Tombstone": {
+          "vs": "Disarray",
+          "lines": [
+            "spinner-horizontal has beaten spinner-vertical in 39% of 142 recorded meetings \u2014 the class is the underdog on paper.",
+            "Those spinner-horizontal-vs-spinner-vertical fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Tombstone's own exposure: knocked out in 7 of its 9 losses (78%) \u2014 it can be finished.",
+            "Tombstone's 21 wins: 81% by KO.",
+            "2026 Pro League so far: 0-1 in 1 fight(s)."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    },
+    {
+      "bot_a": "Cobalt",
+      "bot_b": "Copperhead",
+      "group": "C",
+      "briefs": {
+        "Cobalt": {
+          "vs": "Copperhead",
+          "lines": [
+            "Copperhead's finishing threat: 7 of its 14 wins (50%) came by KO \u2014 it more often grinds out decisions.",
+            "spinner-horizontal has beaten spinner-vertical in 39% of 142 recorded meetings \u2014 the class is the underdog on paper.",
+            "Those spinner-horizontal-vs-spinner-vertical fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Cobalt's own exposure: knocked out in 7 of its 8 losses (88%) \u2014 it can be finished.",
+            "Cobalt's 10 wins: 90% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "Copperhead": {
+          "vs": "Cobalt",
+          "lines": [
+            "Cobalt's finishing threat: 9 of its 10 wins (90%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-vertical has beaten spinner-horizontal in 61% of 142 recorded meetings \u2014 the class is favored on paper.",
+            "Those spinner-vertical-vs-spinner-horizontal fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Copperhead's own exposure: knocked out in 6 of its 7 losses (86%) \u2014 it can be finished.",
+            "Copperhead's 14 wins: 50% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    },
+    {
+      "bot_a": "Bloodsport",
+      "bot_b": "HyperShock",
+      "group": "E",
+      "briefs": {
+        "Bloodsport": {
+          "vs": "HyperShock",
+          "lines": [
+            "HyperShock's finishing threat: 12 of its 13 wins (92%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-horizontal has beaten spinner-vertical in 39% of 142 recorded meetings \u2014 the class is the underdog on paper.",
+            "Those spinner-horizontal-vs-spinner-vertical fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "Bloodsport's own exposure: knocked out in 4 of its 7 losses (57%) \u2014 it can be finished.",
+            "Bloodsport's 10 wins: 60% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        },
+        "HyperShock": {
+          "vs": "Bloodsport",
+          "lines": [
+            "Bloodsport's finishing threat: 6 of its 10 wins (60%) came by KO \u2014 few opponents survive to a decision.",
+            "spinner-vertical has beaten spinner-horizontal in 61% of 142 recorded meetings \u2014 the class is favored on paper.",
+            "Those spinner-vertical-vs-spinner-horizontal fights ended in KO 70% of the time \u2014 expect a finish, not the judges.",
+            "HyperShock's own exposure: knocked out in 11 of its 15 losses (73%) \u2014 it can be finished.",
+            "HyperShock's 13 wins: 92% by KO."
+          ],
+          "footer": "Public-data view only \u2014 the team knows their bot."
+        }
+      }
+    }
+  ]
+}

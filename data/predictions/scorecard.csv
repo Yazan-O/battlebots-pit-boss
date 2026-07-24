@@ -8,3 +8,6 @@ week,episode,fight,predicted_winner,p_predicted,actual_winner,hit,log_loss,prere
 3,103,Disarray vs Magnitude,Disarray,0.5,Magnitude,0,0.6931,True,elo-k80-v2
 3,103,Switchback vs Ribbot,Ribbot,0.7527,Switchback,0,1.3972,True,elo-k80-v2
 3,103,Terrortops vs Valkyrie,Terrortops,0.6102,Terrortops,1,0.494,True,elo-k80-v2
+4,104,Bloodsport vs Minotaur,Minotaur,0.8227,Minotaur,1,0.1952,True,elo-k80-v2
+4,104,Cobalt vs The Twins,Cobalt,0.6471,The Twins,0,1.0416,True,elo-k80-v2
+4,104,Orbitron vs Witch Doctor,Witch Doctor,0.8159,Witch Doctor,1,0.2035,True,elo-k80-v2
